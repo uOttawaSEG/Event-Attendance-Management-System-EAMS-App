@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AttendeeRegisterPage">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Attendee Registration"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Left LinearLayout -->
+    <LinearLayout
+        android:id="@+id/linearLayoutLeft"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="#2196F3"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterButton"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayoutRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintWidth_percent="0.5">
+
+        <!-- Add your views here for the left LinearLayout -->
+
+        <TextView
+            android:id="@+id/firstNameRowText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:gravity="center"
+            android:text="First Name: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/LastNameRowText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Last Name: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/EmailRowText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Email Address: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/PasswordRowText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Password: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/PhoneRowText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Phone number: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/AddressRowText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Address: "
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Right LinearLayout -->
+    <LinearLayout
+        android:id="@+id/linearLayoutRight"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="#C7B53C"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayoutLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintWidth_percent="0.5">
+
+        <!-- Add your views here for the right LinearLayout -->
+
+        <EditText
+            android:id="@+id/firstNameRowInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="First Name Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/LastNameRowInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Last Name Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/EmailRowInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Email Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/PasswordRowInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Password Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/PhoneRowInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Phone Number Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/AddressRowInput"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Address Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/RegisterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:text="Register!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="8dp"
+        android:text="Go Back!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

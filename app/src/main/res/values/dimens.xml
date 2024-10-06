@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_top_margin">16dp</dimen>
+    <dimen name="default_bottom_margin">20dp</dimen>
+    <dimen name="default_read_and_edit_text_height">86dp</dimen>
+    <dimen name="default_read_and_edit_text_height_organizer">70dp</dimen>
+    <dimen name="default_margin_sign_up_fields">5dp</dimen>
+</resources>
