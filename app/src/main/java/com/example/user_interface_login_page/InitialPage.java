@@ -69,7 +69,7 @@ public class InitialPage extends AppCompatActivity {
         });
 
         buttonExit.setOnClickListener(v -> {
-            System.exit(1);
+            finishAffinity();
         });
     }
 }
