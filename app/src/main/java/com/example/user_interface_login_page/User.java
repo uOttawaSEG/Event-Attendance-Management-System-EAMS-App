@@ -1,6 +1,6 @@
 package com.example.user_interface_login_page;
 
-public abstract class Person {
+public abstract class User {
 
     /**
      * Initializing all the instances variables associated to Attendees, Organizers and Administrators
@@ -15,6 +15,18 @@ public abstract class Person {
     private String phoneNumber;
 
     /**
+     * Unparameterized constructor for User class
+     */
+    public User() {
+        this.firstName = "";
+        this.lastName = "";
+        this.emailAddress = "";
+        this.accountPassword = "";
+        this.address = "";
+        this.phoneNumber = "";
+    }
+
+    /**
      * Constructor to be called from sub-classes
      * @param firstName, first name of Person
      * @param lastName, last name of Person
@@ -23,7 +35,7 @@ public abstract class Person {
      * @param address, address of Person
      * @param phoneNumber, phone number of Person
      */
-    public Person(String firstName, String lastName, String emailAddress, String accountPassword, String address, String phoneNumber) {
+    public User(String firstName, String lastName, String emailAddress, String accountPassword, String address, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
