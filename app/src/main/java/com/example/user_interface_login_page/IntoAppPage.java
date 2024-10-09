@@ -24,8 +24,19 @@ public class IntoAppPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        initializeViews();
+        initializeEventListeners();
     }
 
+
+    private void initializeViews(){
+
+        buttonSignOut = findViewById(R.id.buttonSignOut);
+
+
+
+    }
     private void initializeEventListeners() {
         buttonSignOut.setOnClickListener(v -> {
             Intent intent = new Intent(IntoAppPage.this, InitialPage.class);
