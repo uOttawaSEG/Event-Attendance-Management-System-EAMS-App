@@ -9,10 +9,8 @@ public abstract class User {
     private String lastName;
     private String emailAddress;
     private String accountPassword;
-
-    private String address;
-
     private String phoneNumber;
+    private String address;
 
     /**
      * Unparameterized constructor for User class
@@ -22,8 +20,8 @@ public abstract class User {
         this.lastName = "";
         this.emailAddress = "";
         this.accountPassword = "";
-        this.address = "";
         this.phoneNumber = "";
+        this.address = "";
     }
 
     /**

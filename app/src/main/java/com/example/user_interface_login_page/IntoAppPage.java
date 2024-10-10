@@ -31,11 +31,7 @@ public class IntoAppPage extends AppCompatActivity {
 
 
     private void initializeViews(){
-
         buttonSignOut = findViewById(R.id.buttonSignOut);
-
-
-
     }
     private void initializeEventListeners() {
         buttonSignOut.setOnClickListener(v -> {

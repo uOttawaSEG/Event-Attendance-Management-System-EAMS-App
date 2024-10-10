@@ -3,18 +3,6 @@ package com.example.user_interface_login_page;
 public class Validator {
 
     /**
-     *
-     * @param firstName
-     * @param lastName
-     * @param emailAddress
-     * @param accountPassword
-     * @param address
-     * @param phoneNumber
-     * @param organizationName
-
-     */
-
-    /**
      * Validate the first name
      *
      * @return true if it is valid, otherwise false
@@ -48,7 +36,7 @@ public class Validator {
      * @return true if the phone number is valid, otherwise false
      */
     public static boolean validatePhoneNumber (String phoneNumber){
-        return !phoneNumber.isEmpty() && phoneNumber.matches("(^+?\\d{1,3}[- ]?)?(\\d{3}[- ]?\\d{3}[- ]?\\d{4})$");
+        return !phoneNumber.isEmpty(); //&& phoneNumber.matches("(^+?\\d{1,3}[- ]?)?(\\d{3}[- ]?\\d{3}[- ]?\\d{4})$");
     }
 
     /**
