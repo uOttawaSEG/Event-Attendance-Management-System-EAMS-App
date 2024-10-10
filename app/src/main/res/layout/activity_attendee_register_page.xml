@@ -29,7 +29,7 @@
         android:layout_marginBottom="8dp"
         android:background="#2196F3"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/RegisterButton"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintEnd_toStartOf="@+id/linearLayoutRight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -100,7 +100,7 @@
         android:layout_marginBottom="8dp"
         android:background="#C7B53C"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/RegisterButton"
+        app:layout_constraintBottom_toTopOf="@+id/registerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayoutLeft"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
@@ -109,7 +109,7 @@
         <!-- Add your views here for the right LinearLayout -->
 
         <EditText
-            android:id="@+id/firstNameRowInput"
+            android:id="@+id/firstNameET"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_read_and_edit_text_height"
             android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
@@ -120,7 +120,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/LastNameRowInput"
+            android:id="@+id/lastNameET"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_read_and_edit_text_height"
             android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
@@ -132,7 +132,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/EmailRowInput"
+            android:id="@+id/emailET"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_read_and_edit_text_height"
             android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
@@ -144,7 +144,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/PasswordRowInput"
+            android:id="@+id/passwordET"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_read_and_edit_text_height"
             android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
@@ -156,7 +156,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/PhoneRowInput"
+            android:id="@+id/phoneNumberET"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_read_and_edit_text_height"
             android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
@@ -168,7 +168,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/AddressRowInput"
+            android:id="@+id/addressET"
             android:layout_width="match_parent"
             android:layout_height="@dimen/default_read_and_edit_text_height"
             android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
@@ -181,7 +181,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/RegisterButton"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
@@ -191,7 +191,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/BackButton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

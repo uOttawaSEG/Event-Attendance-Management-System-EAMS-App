@@ -35,13 +35,31 @@ public abstract class User {
      * @param address, address of Person
      * @param phoneNumber, phone number of Person
      */
-    public User(String firstName, String lastName, String emailAddress, String accountPassword, String address, String phoneNumber) {
+    public User(String firstName, String lastName, String emailAddress, String accountPassword, String phoneNumber, String address) throws IllegalArgumentException {
+        if (!Validator.validateFirstName(firstName)){
+            throw new IllegalArgumentException("Invalid first name");
+        }
+        if (!Validator.validateLastName(lastName)){
+            throw new IllegalArgumentException("Invalid last name");
+        }
+        if(!Validator.validateEmail(emailAddress)){
+            throw new IllegalArgumentException("Invalid email address");
+        }
+        if (!Validator.validatePassword(accountPassword)){
+            throw new IllegalArgumentException("Invalid password");
+        }
+        if (!Validator.validatePhoneNumber(phoneNumber)){
+            throw new IllegalArgumentException("Invalid phone number.");
+        }
+        if (!Validator.validateAddress(address)){
+            throw new IllegalArgumentException("Invalid address");
+        }
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.accountPassword = accountPassword;
-        this.address = address;
         this.phoneNumber = phoneNumber;
+        this.address = address;
     }
 
     //Getters and setters associated to all fields of Person class
@@ -73,9 +91,7 @@ public abstract class User {
         return accountPassword;
     }
 
-    public void setAccountPassword(String accountPassword) {
-        this.accountPassword = accountPassword;
-    }
+    public void setAccountPassword(String accountPassword) {this.accountPassword = accountPassword; }
 
     public String getAddress() {
         return address;

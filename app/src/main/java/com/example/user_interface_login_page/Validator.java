@@ -10,33 +10,9 @@ public class Validator {
      * @param accountPassword
      * @param address
      * @param phoneNumber
+     * @param organizationName
 
      */
-    public static String validateInputAttendee(String firstName, String lastName, String emailAddress, String accountPassword, String address, String phoneNumber) {
-        String output = "";
-        if (!validateFirstName(firstName)){
-            output += "Invalid first name, " ;
-        }
-
-
-        if (!validateLastName(lastName)){
-            output += "Invalid last name, ";
-        }
-        if(!validateEmail(emailAddress)){
-            output += "Invalid email address, ";
-        }
-        if (!validatePassword(accountPassword)){
-            output += "Invalid password, ";
-        };
-        if (!validateAddress(address)){
-            output += "Invalid address, ";
-        };
-        if (!validatePhoneNumber(phoneNumber)){
-            output += "Invalid phone number.";
-        };
-        return output;
-
-    }
 
     /**
      * Validate the first name
@@ -44,7 +20,7 @@ public class Validator {
      * @return true if it is valid, otherwise false
      */
     public static boolean validateFirstName(String firstName){
-        return firstName != null && firstName.matches("[a-zA-Z]+");
+        return !firstName.isEmpty() && firstName.matches("[a-zA-Z]+");
     }
 
     /**
@@ -53,7 +29,7 @@ public class Validator {
      * @return true if it is valid, otherwise false
      */
     public static boolean validateLastName(String lastName){
-        return lastName != null && lastName.matches("[a-zA-Z]+");
+        return !lastName.isEmpty() && lastName.matches("[a-zA-Z]+");
     }
 
     /**
@@ -62,7 +38,7 @@ public class Validator {
      * @return true if the email address is valid, false otherwise
      */
     public static boolean validateEmail (String emailAddress){
-        return emailAddress != null && emailAddress.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
+        return !emailAddress.isEmpty() && emailAddress.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$");
 
     }
 
@@ -72,8 +48,7 @@ public class Validator {
      * @return true if the phone number is valid, otherwise false
      */
     public static boolean validatePhoneNumber (String phoneNumber){
-        return phoneNumber != null && phoneNumber.matches("(\\+\\d{1,3}[- ]?)?\\d{7}");
-
+        return !phoneNumber.isEmpty() && phoneNumber.matches("(^+?\\d{1,3}[- ]?)?(\\d{3}[- ]?\\d{3}[- ]?\\d{4})$");
     }
 
     /**
@@ -82,7 +57,19 @@ public class Validator {
      * @return true if the address is valid, otherwise false
      */
     public static boolean validateAddress(String address){
-        return address != null && address.matches("[a-zA-Z0-9\\s,.-]+");
+//        boolean foundLetter = false;
+//        boolean foundNumber = false;
+//        for (int i=0;i<address.length();i++) {
+//            if (Character.isLetter(address.charAt(i))) {
+//                foundLetter = true;
+//            }
+//            if (Character.isDigit(address.charAt(i))) {
+//                foundNumber = true;
+//            }
+//        }
+//
+//        return !address.isEmpty() && foundNumber && foundLetter;
+        return !address.isEmpty() && address.matches("[a-zA-Z0-9\\s,.-]+");
 
     }
 
@@ -92,7 +79,7 @@ public class Validator {
      * @return true if the account password is true, otherwise false
      */
     public static boolean validatePassword(String accountPassword) {
-        return accountPassword != null && accountPassword.length()>=8;
+        return !accountPassword.isEmpty() && accountPassword.length()>=8;
 
     }
 
@@ -102,7 +89,7 @@ public class Validator {
      * @return true if the organization is valid, otherwise false
      */
     public static boolean validateOrganizationName(String organizationName) {
-        return organizationName != null && organizationName.matches("^[a-zA-Z0-9]+$");
+        return !organizationName.isEmpty() && organizationName.matches("^[a-zA-Z0-9]+$");
     }
 
 
