@@ -64,6 +64,9 @@ public class AttendeeRegisterPage extends AppCompatActivity {
                                                 addressET.getText().toString());
                 // add attendee to database
                 Intent intent = new Intent(AttendeeRegisterPage.this, IntoAppPage.class);
+                Bundle b = new Bundle();
+                b.putInt("ID", attendee.getUserID());
+                intent.putExtras(b);
                 startActivity(intent);
             }
             catch (IllegalArgumentException e) {

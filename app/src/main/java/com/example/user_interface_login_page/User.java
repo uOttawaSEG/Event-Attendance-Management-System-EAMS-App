@@ -11,6 +11,8 @@ public abstract class User {
     private String accountPassword;
     private String phoneNumber;
     private String address;
+    private int userID;
+
 
     /**
      * Unparameterized constructor for User class
@@ -89,7 +91,9 @@ public abstract class User {
         return accountPassword;
     }
 
-    public void setAccountPassword(String accountPassword) {this.accountPassword = accountPassword; }
+    public void setAccountPassword(String accountPassword) {
+        this.accountPassword = accountPassword;
+    }
 
     public String getAddress() {
         return address;
@@ -106,4 +110,14 @@ public abstract class User {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public abstract String getUserType();
 }

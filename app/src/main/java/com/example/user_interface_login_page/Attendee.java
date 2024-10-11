@@ -5,6 +5,10 @@ public class Attendee extends User{
         super(firstName, lastName, emailAddress, accountPassword, address, phoneNumber);
     }
 
+    @Override
+    public String getUserType() {
+        return "Attendee";
+    }
 }
 
 

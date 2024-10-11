@@ -3,6 +3,7 @@ package com.example.user_interface_login_page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class IntoAppPage extends AppCompatActivity {
 
     private Button buttonSignOut;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +27,21 @@ public class IntoAppPage extends AppCompatActivity {
             return insets;
         });
 
+        Bundle b = getIntent().getExtras();
+        int ID;
+        if(b != null)
+            ID = b.getInt("ID");
+
+        // Get user with id
         initializeViews();
         initializeEventListeners();
     }
 
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(getApplicationContext(), user.getUserType(), Toast.LENGTH_SHORT).show();
+    }
     private void initializeViews(){
         buttonSignOut = findViewById(R.id.buttonSignOut);
     }

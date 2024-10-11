@@ -12,4 +12,9 @@ public class Organizer extends User{
 
         this.organizationName = organizationName;
     }
+
+    @Override
+    public String getUserType() {
+        return "Organizer";
+    }
 }

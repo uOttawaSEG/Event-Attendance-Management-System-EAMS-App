@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class InitialPage extends AppCompatActivity {
 
-    private Button buttonSignIn;
+    private Button loginButton;
     private Button buttonCreateOrganizer;
     private Button buttonCreateAttendee;
 
@@ -35,7 +35,7 @@ public class InitialPage extends AppCompatActivity {
 
     private void initializeViews() {
         //Initialize views
-        buttonSignIn = findViewById(R.id.buttonLoginIn);
+        loginButton = findViewById(R.id.loginButton);
         buttonCreateOrganizer = findViewById(R.id.buttonCreateOrganizer);
         buttonCreateAttendee = findViewById(R.id.buttonCreateAttendee);
         buttonExit = findViewById(R.id.buttonExit);
@@ -43,7 +43,7 @@ public class InitialPage extends AppCompatActivity {
     }
 
     private void initializeEventListeners() {
-        buttonSignIn.setOnClickListener(v -> {
+        loginButton.setOnClickListener(v -> {
             boolean verification = true;
             /*
             * Don't forget to verify if Inputted username and password are appropriate before doing intent
