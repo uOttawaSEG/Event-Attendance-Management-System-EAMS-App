@@ -56,17 +56,24 @@ public class AttendeeRegisterPage extends AppCompatActivity {
 
         registerButton.setOnClickListener(v -> {
             try {
+                if (MainActivity.emailExists(emailET.getText().toString())) {
+                    throw new IllegalArgumentException("Email already exists");
+                }
+
                 Attendee attendee = new Attendee(firstNameET.getText().toString(),
                                                 lastNameET.getText().toString(),
                                                 emailET.getText().toString(),
                                                 passwordET.getText().toString(),
                                                 phoneNumberET.getText().toString(),
                                                 addressET.getText().toString());
-                // add attendee to database
+
+                // Adding attendee to database
+                MainActivity.addUser(attendee);
+
                 Intent intent = new Intent(AttendeeRegisterPage.this, IntoAppPage.class);
-                //Bundle b = new Bundle();
-                //b.putInt("ID", attendee.getUserID());
-                //intent.putExtras(b);
+                Bundle b = new Bundle();
+                b.putString("userID", attendee.getUserID());
+                intent.putExtras(b);
                 startActivity(intent);
             }
             catch (IllegalArgumentException e) {

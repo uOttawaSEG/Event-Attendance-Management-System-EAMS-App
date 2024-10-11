@@ -13,19 +13,6 @@ public abstract class User {
     private String address;
     private String userID;
 
-
-    /**
-     * Unparameterized constructor for User class
-     */
-    public User() {
-        this.firstName = "";
-        this.lastName = "";
-        this.emailAddress = "";
-        this.accountPassword = "";
-        this.phoneNumber = "";
-        this.address = "";
-    }
-
     /**
      * Constructor to be called from sub-classes
      * @param firstName, first name of Person

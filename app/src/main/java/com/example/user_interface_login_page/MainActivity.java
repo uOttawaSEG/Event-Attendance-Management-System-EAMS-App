@@ -2,8 +2,6 @@ package com.example.user_interface_login_page;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,24 +15,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    // Firebase database
+    private FirebaseDatabase firebaseDatabase;
+
     // Firebase database reference
-    protected static DatabaseReference mDatabase;
+    private static DatabaseReference databaseReference;
 
-    // Method to add user
-    protected static void addUser(User user) {
-        // Generate and set user ID
-        String userID = mDatabase.push().getKey();
-        user.setUserID((userID));
-
-        // Write task to Firebase
-        mDatabase.child(userID).setValue(user);
-    }
-
-    // Method to read user for Firebase
-    protected static void readUser() {
-        return;
-    }
+    // List to hold users
+    private static List<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +39,71 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Initialize Firebase database
+        firebaseDatabase = FirebaseDatabase.getInstance();
+
         // Initialize Firebase database reference
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference = firebaseDatabase.getReference("users");
+
+        // Initialize task list and adapter
+        userList = new ArrayList<>();
+
+        // Read tasks from Firebase
+        //readUsers();
 
         Intent intent = new Intent(MainActivity.this,InitialPage.class);
         startActivity(intent);
     }
 
+    // Method to add user
+    protected static void addUser(User user) {
+        // Generate and set user ID
+        String userID = databaseReference.push().getKey();
+        user.setUserID((userID));
 
+        // Add user to database and userList
+        databaseReference.setValue(user);
+        userList.add(user);
+
+        // Write task to Firebase
+        databaseReference.child(userID).setValue(user);
+    }
+
+    // Method to read users from Firebase into userList
+    protected static void readUsers() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    User user = userSnapshot.getValue(User.class);
+                    userList.add(user);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    // Method to check if email exists
+    protected static boolean emailExists(String email) {
+        for (int i=0;i<userList.size();i++) {
+            if (userList.get(i).getEmailAddress().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Method to get user from userID
+    protected static User getUser(String userID) {
+        for (int i=0;i<userList.size();i++) {
+            if (userList.get(i).getUserID().equals(userID)) {
+                return userList.get(i);
+            }
+        }
+        throw new IllegalArgumentException("Invalid userID");
+    }
 }

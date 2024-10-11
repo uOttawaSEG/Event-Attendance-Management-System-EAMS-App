@@ -60,6 +60,10 @@ public class OrganiserRegisterPage extends AppCompatActivity {
 
         registerButton.setOnClickListener(v -> {
             try {
+                if (MainActivity.emailExists(emailET.getText().toString())) {
+                    throw new IllegalArgumentException("Email already exists");
+                }
+
                 Organizer organizer = new Organizer(firstNameET.getText().toString(),
                         lastNameET.getText().toString(),
                         emailET.getText().toString(),
@@ -67,12 +71,14 @@ public class OrganiserRegisterPage extends AppCompatActivity {
                         phoneNumberET.getText().toString(),
                         addressET.getText().toString(),
                         organizationNameET.getText().toString());
-                // add organizer to database
+
+                // Adding organizer to database
+                MainActivity.addUser(organizer);
 
                 Intent intent = new Intent(OrganiserRegisterPage.this, IntoAppPage.class);
-                //Bundle b = new Bundle();
-                //b.putInt("ID", organizer.getUserID());
-                //intent.putExtras(b);
+                Bundle b = new Bundle();
+                b.putString("userID", organizer.getUserID());
+                intent.putExtras(b);
                 startActivity(intent);
             }
             catch (IllegalArgumentException e) {
