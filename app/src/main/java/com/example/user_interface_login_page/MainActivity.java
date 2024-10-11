@@ -21,6 +21,21 @@ public class MainActivity extends AppCompatActivity {
     // Firebase database reference
     protected static DatabaseReference mDatabase;
 
+    // Method to add user
+    protected static void addUser(User user) {
+        // Generate and set user ID
+        String userID = mDatabase.push().getKey();
+        user.setUserID((userID));
+
+        // Write task to Firebase
+        mDatabase.child(userID).setValue(user);
+    }
+
+    // Method to read user for Firebase
+    protected static void readUser() {
+        return;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

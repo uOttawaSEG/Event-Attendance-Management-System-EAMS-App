@@ -70,9 +70,9 @@ public class OrganiserRegisterPage extends AppCompatActivity {
                 // add organizer to database
 
                 Intent intent = new Intent(OrganiserRegisterPage.this, IntoAppPage.class);
-                Bundle b = new Bundle();
-                b.putInt("ID", organizer.getUserID());
-                intent.putExtras(b);
+                //Bundle b = new Bundle();
+                //b.putInt("ID", organizer.getUserID());
+                //intent.putExtras(b);
                 startActivity(intent);
             }
             catch (IllegalArgumentException e) {

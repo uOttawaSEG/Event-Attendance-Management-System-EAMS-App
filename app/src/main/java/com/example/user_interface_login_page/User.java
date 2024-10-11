@@ -11,7 +11,7 @@ public abstract class User {
     private String accountPassword;
     private String phoneNumber;
     private String address;
-    private int userID;
+    private String userID;
 
 
     /**
@@ -111,11 +111,11 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

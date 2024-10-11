@@ -27,21 +27,21 @@ public class IntoAppPage extends AppCompatActivity {
             return insets;
         });
 
-        Bundle b = getIntent().getExtras();
-        int ID;
-        if(b != null)
-            ID = b.getInt("ID");
+        //Bundle b = getIntent().getExtras();
+        //int ID;
+        //if(b != null)
+          //  ID = b.getInt("ID");
 
         // Get user with id
         initializeViews();
         initializeEventListeners();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Toast.makeText(getApplicationContext(), user.getUserType(), Toast.LENGTH_SHORT).show();
-    }
+    //@Override
+    //protected void onStart() {
+        //super.onStart();
+        //Toast.makeText(getApplicationContext(), "You are logged in as an " + user.getUserType(), Toast.LENGTH_SHORT).show();
+    //}
     private void initializeViews(){
         buttonSignOut = findViewById(R.id.buttonSignOut);
     }
