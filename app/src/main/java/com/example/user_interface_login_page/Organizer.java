@@ -10,11 +10,7 @@ public class Organizer extends User{
             throw new IllegalArgumentException("Invalid organization name");
         }
 
+        setUserType("Organizer");
         this.organizationName = organizationName;
-    }
-
-    @Override
-    public String getUserType() {
-        return "Organizer";
     }
 }

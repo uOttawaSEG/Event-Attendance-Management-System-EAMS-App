@@ -12,6 +12,17 @@ public abstract class User {
     private String phoneNumber;
     private String address;
     private String userID;
+    private String userType;
+
+    public User() {
+        this.firstName = "";
+        this.lastName = "";
+        this.emailAddress = "";
+        this.accountPassword = "";
+        this.phoneNumber = "";
+        this.address = "";
+        this.userType = "N/A";
+    }
 
     /**
      * Constructor to be called from sub-classes
@@ -47,6 +58,7 @@ public abstract class User {
         this.accountPassword = accountPassword;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.userType = "N/A";
     }
 
     //Getters and setters associated to all fields of Person class
@@ -106,5 +118,11 @@ public abstract class User {
         this.userID = userID;
     }
 
-    public abstract String getUserType();
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 }

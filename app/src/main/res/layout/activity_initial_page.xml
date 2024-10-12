@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Welcome to the EAMS App"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_marginTop="@dimen/default_top_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -23,10 +23,10 @@
         android:id="@+id/loginInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="16sp"
         android:text="Login into the App"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/welcomeLoginPage" />
 
@@ -35,10 +35,10 @@
     <!-- Right LinearLayout -->
     <LinearLayout
         android:id="@+id/leftLayout"
-        android:layout_width="0dp"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="20sp"
         android:background="#2196F3"
         android:gravity="top"
         android:orientation="vertical"
@@ -51,29 +51,29 @@
         <TextView
             android:id="@+id/loginUserName"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="90sp"
+            android:layout_marginTop="8sp"
             android:gravity="center"
             android:text="Username (or email):"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/loginPassword"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="90sp"
+            android:layout_marginTop="8sp"
             android:gravity="center"
             android:text="Password:"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/rightLayout"
-        android:layout_width="0dp"
+        android:layout_width="0sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="20sp"
         android:background="#E0AE16"
         android:gravity="top"
         android:orientation="vertical"
@@ -86,27 +86,27 @@
         <EditText
             android:id="@+id/usernameET"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="90sp"
+            android:layout_marginTop="8sp"
             android:gravity="center"
             android:hint="Input Username Here"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/loginPasswordET"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="90sp"
+            android:layout_marginTop="8sp"
             android:gravity="center"
             android:hint="Input Password Here"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="203dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="15dp"
+        android:layout_width="203sp"
+        android:layout_height="47sp"
+        android:layout_marginTop="15sp"
         android:backgroundTint="#0E6A08"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,21 +117,22 @@
         android:id="@+id/createAnAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="80sp"
         android:gravity="center"
         android:text="Not Registered? Create an Account!"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonCreateOrganizer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
     <Button
         android:id="@+id/buttonCreateAttendee"
-        android:layout_width="190dp"
-        android:layout_height="77dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="115dp"
+        android:layout_width="190sp"
+        android:layout_height="77sp"
+        android:layout_marginEnd="8sp"
+        android:layout_marginBottom="115sp"
         android:backgroundTint="#0E6A08"
 
         android:text="Register as Attendee"
@@ -140,10 +141,10 @@
 
     <Button
         android:id="@+id/buttonCreateOrganizer"
-        android:layout_width="190dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="115dp"
+        android:layout_width="190sp"
+        android:layout_height="77sp"
+        android:layout_marginStart="8sp"
+        android:layout_marginBottom="115sp"
         android:backgroundTint="#0E6A08"
         android:text="Register as Organiser"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -154,8 +155,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#C32222"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4sp"
+        android:layout_marginBottom="4sp"
         android:text="Exit App"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

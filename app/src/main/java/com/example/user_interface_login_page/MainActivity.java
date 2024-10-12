@@ -2,8 +2,10 @@ package com.example.user_interface_login_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         userList = new ArrayList<>();
 
         // Read tasks from Firebase
-        readUsers();
+        //readUsers();
 
         Intent intent = new Intent(MainActivity.this,InitialPage.class);
         startActivity(intent);
@@ -61,19 +63,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method to read users from Firebase into userList
-    protected static void readUsers() {
-        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
+    private void readUsers() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     User user = userSnapshot.getValue(User.class);
-                    userList.add(user);
+                    if (user != null) {
+                        userList.add(user);
+                    }
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+                Log.e("MainActivity", "The read failed: " + databaseError.getCode());
             }
         });
     }
