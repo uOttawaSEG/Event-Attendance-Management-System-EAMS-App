@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected static void addUser(User user) {
         // Generate and set user ID
         String userID = databaseReference.push().getKey();
-        user.setUserID((userID));
+        user.setUserID(userID);
 
         // Add user to database and userList
         databaseReference.setValue(user);

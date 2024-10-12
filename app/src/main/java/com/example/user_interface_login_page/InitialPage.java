@@ -15,7 +15,6 @@ public class InitialPage extends AppCompatActivity {
     private Button loginButton;
     private Button buttonCreateOrganizer;
     private Button buttonCreateAttendee;
-
     private Button buttonExit;
 
     @Override
