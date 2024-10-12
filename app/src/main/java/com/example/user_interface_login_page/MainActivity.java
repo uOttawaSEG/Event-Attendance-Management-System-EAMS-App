@@ -62,11 +62,8 @@ public class MainActivity extends AppCompatActivity {
         user.setUserID(userID);
 
         // Add user to database and userList
-        databaseReference.setValue(user);
-        userList.add(user);
-
-        // Write task to Firebase
         databaseReference.child(userID).setValue(user);
+        userList.add(user);
     }
 
     // Method to read users from Firebase into userList
