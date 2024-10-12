@@ -3,6 +3,8 @@ package com.example.user_interface_login_page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +18,8 @@ public class InitialPage extends AppCompatActivity {
     private Button buttonCreateOrganizer;
     private Button buttonCreateAttendee;
     private Button buttonExit;
+    private EditText usernameET;
+    private EditText loginPasswordET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +42,29 @@ public class InitialPage extends AppCompatActivity {
         buttonCreateOrganizer = findViewById(R.id.buttonCreateOrganizer);
         buttonCreateAttendee = findViewById(R.id.buttonCreateAttendee);
         buttonExit = findViewById(R.id.buttonExit);
+        usernameET = findViewById(R.id.usernameET);
+        loginPasswordET = findViewById(R.id.loginPasswordET);
 
     }
 
     private void initializeEventListeners() {
         loginButton.setOnClickListener(v -> {
-            boolean verification = true;
-            /*
-            * Don't forget to verify if Inputted username and password are appropriate before doing intent
-            */
-            if (verification) {
-                Intent intent = new Intent(InitialPage.this, IntoAppPage.class);
-                startActivity(intent);
+            // Verifying that username is registered
+            if (MainActivity.emailExists(usernameET.getText().toString())) {
+                User user = MainActivity.getUserFromEmail(usernameET.getText().toString());
+                if (user.getAccountPassword().equals(loginPasswordET.getText().toString())) {
+                    Intent intent = new Intent(InitialPage.this, IntoAppPage.class);
+                    Bundle b = new Bundle();
+                    b.putString("userID", user.getUserID());
+                    intent.putExtras(b);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Email or password is incorrect", Toast.LENGTH_SHORT).show();
+                }
             }
             else {
-                return;
-                //handle false username/password, with toast
+                Toast.makeText(getApplicationContext(), "Email/username is not registered", Toast.LENGTH_SHORT).show();
             }
         });
 

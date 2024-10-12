@@ -30,7 +30,7 @@ public class IntoAppPage extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         assert b != null;
         String userID = b.getString("userID");
-        user = MainActivity.getUser(userID);
+        user = MainActivity.getUserFromID(userID);
 
         initializeViews();
         initializeEventListeners();

@@ -19,9 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    // Firebase database
-    private FirebaseDatabase firebaseDatabase;
-
     // Firebase database reference
     private static DatabaseReference databaseReference;
 
@@ -39,17 +36,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Initialize Firebase database
-        firebaseDatabase = FirebaseDatabase.getInstance();
-
         // Initialize Firebase database reference
-        databaseReference = firebaseDatabase.getReference("users");
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         // Initialize task list and adapter
         userList = new ArrayList<>();
 
         // Read tasks from Firebase
-        //readUsers();
+        readUsers();
 
         Intent intent = new Intent(MainActivity.this,InitialPage.class);
         startActivity(intent);
@@ -68,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to read users from Firebase into userList
     protected static void readUsers() {
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userList.clear();
@@ -95,12 +89,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method to get user from userID
-    protected static User getUser(String userID) {
+    protected static User getUserFromID(String userID) {
         for (int i=0;i<userList.size();i++) {
             if (userList.get(i).getUserID().equals(userID)) {
                 return userList.get(i);
             }
         }
-        throw new IllegalArgumentException("Invalid userID");
+        throw new IllegalArgumentException("Invalid user ID");
+    }
+
+    // Method to get user from emailAddress
+    protected static User getUserFromEmail(String emailAddress) {
+        for (int i=0;i<userList.size();i++) {
+            if (userList.get(i).getEmailAddress().equals(emailAddress)) {
+                return userList.get(i);
+            }
+        }
+        throw new IllegalArgumentException("Invalid email address");
     }
 }
