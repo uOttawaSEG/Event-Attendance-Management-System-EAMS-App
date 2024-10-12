@@ -2,13 +2,16 @@ package com.example.user_interface_login_page;
 
 public class Validator {
 
+    private static final String ADDRESS_PATTERN = "^\\d+\\s[A-z]+(?:\\s[A-z]+)*(?:\\s(?:Apt|Unit|Suite)\\s\\d+)?(?:,\\s[A-z]+)*(?:,\\s[A-Z]{2})?(?:\\s\\d{5})?$";
+    private static final String PHONE_PATTERN = "^\\+?[0-9. ()-]{7,15}$";
+
     /**
      * Validate the first name
      *
      * @return true if it is valid, otherwise false
      */
     public static boolean validateFirstName(String firstName){
-        return !firstName.isEmpty() && firstName.matches("[a-zA-Z]+");
+        return !firstName.isEmpty() && firstName.length() >= 2 && firstName.matches("[a-zA-Z]+");
     }
 
     /**
@@ -17,7 +20,7 @@ public class Validator {
      * @return true if it is valid, otherwise false
      */
     public static boolean validateLastName(String lastName){
-        return !lastName.isEmpty() && lastName.matches("[a-zA-Z]+");
+        return !lastName.isEmpty() && lastName.length() >= 2 && lastName.matches("[a-zA-Z]+");
     }
 
     /**
@@ -36,7 +39,7 @@ public class Validator {
      * @return true if the phone number is valid, otherwise false
      */
     public static boolean validatePhoneNumber (String phoneNumber){
-        return !phoneNumber.isEmpty(); //&& phoneNumber.matches("(^+?\\d{1,3}[- ]?)?(\\d{3}[- ]?\\d{3}[- ]?\\d{4})$");
+        return !phoneNumber.isEmpty() && phoneNumber.matches(PHONE_PATTERN);
     }
 
     /**
@@ -57,7 +60,7 @@ public class Validator {
 //        }
 //
 //        return !address.isEmpty() && foundNumber && foundLetter;
-        return !address.isEmpty() && address.matches("[a-zA-Z0-9\\s,.-]+");
+        return !address.isEmpty() && address.matches(ADDRESS_PATTERN);
 
     }
 
