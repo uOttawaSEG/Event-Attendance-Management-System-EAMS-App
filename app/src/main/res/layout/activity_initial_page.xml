@@ -51,7 +51,7 @@
         <TextView
             android:id="@+id/loginUserName"
             android:layout_width="match_parent"
-            android:layout_height="90sp"
+            android:layout_height="120sp"
             android:layout_marginTop="8sp"
             android:gravity="center"
             android:text="Username (or email):"
@@ -60,7 +60,7 @@
         <TextView
             android:id="@+id/loginPassword"
             android:layout_width="match_parent"
-            android:layout_height="90sp"
+            android:layout_height="120sp"
             android:layout_marginTop="8sp"
             android:gravity="center"
             android:text="Password:"
@@ -86,7 +86,7 @@
         <EditText
             android:id="@+id/usernameET"
             android:layout_width="match_parent"
-            android:layout_height="90sp"
+            android:layout_height="120sp"
             android:layout_marginTop="8sp"
             android:gravity="center"
             android:hint="Input Username Here"
@@ -95,7 +95,7 @@
         <EditText
             android:id="@+id/loginPasswordET"
             android:layout_width="match_parent"
-            android:layout_height="90sp"
+            android:layout_height="120sp"
             android:layout_marginTop="8sp"
             android:gravity="center"
             android:hint="Input Password Here"
@@ -105,11 +105,12 @@
     <Button
         android:id="@+id/loginButton"
         android:layout_width="203sp"
-        android:layout_height="47sp"
-        android:layout_marginTop="15sp"
+        android:layout_height="60sp"
+        android:layout_marginTop="28sp"
         android:backgroundTint="#0E6A08"
         android:text="Login"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/leftLayout" />
 
@@ -117,7 +118,7 @@
         android:id="@+id/createAnAccount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80sp"
+        android:layout_marginBottom="24sp"
         android:gravity="center"
         android:text="Not Registered? Create an Account!"
         android:textSize="25sp"
@@ -125,14 +126,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+        app:layout_constraintTop_toBottomOf="@+id/loginButton"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttonCreateAttendee"
         android:layout_width="190sp"
         android:layout_height="77sp"
         android:layout_marginEnd="8sp"
-        android:layout_marginBottom="115sp"
+        android:layout_marginBottom="100sp"
         android:backgroundTint="#0E6A08"
 
         android:text="Register as Attendee"
@@ -144,7 +146,7 @@
         android:layout_width="190sp"
         android:layout_height="77sp"
         android:layout_marginStart="8sp"
-        android:layout_marginBottom="115sp"
+        android:layout_marginBottom="100sp"
         android:backgroundTint="#0E6A08"
         android:text="Register as Organiser"
         app:layout_constraintBottom_toBottomOf="parent"
