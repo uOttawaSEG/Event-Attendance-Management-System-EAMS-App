@@ -3,6 +3,7 @@ package com.example.user_interface_login_page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     // Firebase database reference
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         userList = new ArrayList<>();
 
         // Read tasks from Firebase
-        //readUsers();
+        readUsers();
 
         Intent intent = new Intent(MainActivity.this,InitialPage.class);
         startActivity(intent);
@@ -69,9 +71,32 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    User user = userSnapshot.getValue(User.class);
-                    if (user != null) {
-                        userList.add(user);
+                    String firstName = userSnapshot.child("firstName").getValue(String.class);
+                    String lastName = userSnapshot.child("lastName").getValue(String.class);
+                    String emailAddress = userSnapshot.child("emailAddress").getValue(String.class);
+                    String accountPassword = userSnapshot.child("accountPassword").getValue(String.class);
+                    String phoneNumber = userSnapshot.child("phoneNumber").getValue(String.class);
+                    String address = userSnapshot.child("address").getValue(String.class);
+                    String userID = userSnapshot.child("userID").getValue(String.class);
+                    String userType = userSnapshot.child("userType").getValue(String.class);
+
+                    if (userType.equals("Attendee")) {
+                        Attendee temp = new Attendee(firstName,lastName,emailAddress,accountPassword,phoneNumber,address);
+                        temp.setUserID(userID);
+                        userList.add(temp);
+                    }
+
+                    if (userType.equals("Organizer")) {
+                        String organizationName = userSnapshot.child("organizationName").getValue(String.class);
+                        Organizer temp = new Organizer(firstName,lastName,emailAddress,accountPassword,phoneNumber,address,organizationName);
+                        temp.setUserID(userID);
+                        userList.add(temp);
+                    }
+
+                    if (userType.equals("Administrator")) {
+                        Administrator temp = new Administrator(firstName,lastName,emailAddress,accountPassword,phoneNumber,address);
+                        temp.setUserID(userID);
+                        userList.add(temp);
                     }
                 }
             }

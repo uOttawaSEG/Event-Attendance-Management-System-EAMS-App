@@ -3,6 +3,7 @@ package com.example.user_interface_login_page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,7 @@ public class IntoAppPage extends AppCompatActivity {
 
     private Button buttonSignOut;
     private User user;
+    private TextView welcomeMessageType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,8 @@ public class IntoAppPage extends AppCompatActivity {
     }
     private void initializeViews(){
         buttonSignOut = findViewById(R.id.buttonSignOut);
+        welcomeMessageType = findViewById(R.id.welcomeMessageType);
+        welcomeMessageType.setText("You are logged in as an " + user.getUserType());
     }
     private void initializeEventListeners() {
         buttonSignOut.setOnClickListener(v -> {
