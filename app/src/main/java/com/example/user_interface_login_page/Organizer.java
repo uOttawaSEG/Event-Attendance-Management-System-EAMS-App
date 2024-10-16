@@ -7,7 +7,7 @@ public class Organizer extends User{
         super(firstName,lastName,emailAddress,accountPassword,phoneNumber,address);
 
         if (!Validator.validateOrganizationName(organizationName)) {
-            throw new IllegalArgumentException("Organization Name must have at least 1 alpha-numerical character.");
+            throw new IllegalArgumentException("Organization Name must have at least 1 character.");
         }
 
         setUserType("Organizer");

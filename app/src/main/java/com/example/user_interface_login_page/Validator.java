@@ -8,7 +8,7 @@ public class Validator {
     private static final String ACCOUNT_PASSWORD_PATERN = "^.{8,}$";
     private static final String PHONENUMBER_PATTERN = "^\\+?[0-9. ()-]{7,15}$";
     private static final String ADDRESS_PATTERN = "^\\d+\\s[A-z]+(?:\\s[A-z]+)*(?:\\s(?:Apt|Unit|Suite)\\s\\d+)?(?:,\\s[A-z]+)*(?:,\\s[A-Z]{2})?(?:\\s\\d{5})?$";
-    private static final String ORGANIZATIONNAME_PATERN = "^[a-zA-Z0-9]+$";
+    private static final String ORGANIZATIONNAME_PATERN = "^.+$";
 
     /**
      * Validate the first name
