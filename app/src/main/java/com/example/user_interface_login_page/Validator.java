@@ -53,20 +53,7 @@ public class Validator {
      * @return true if the address is valid, otherwise false
      */
     public static boolean validateAddress(String address){
-//        boolean foundLetter = false;
-//        boolean foundNumber = false;
-//        for (int i=0;i<address.length();i++) {
-//            if (Character.isLetter(address.charAt(i))) {
-//                foundLetter = true;
-//            }
-//            if (Character.isDigit(address.charAt(i))) {
-//                foundNumber = true;
-//            }
-//        }
-//
-//        return !address.isEmpty() && foundNumber && foundLetter;
         return !address.isEmpty() && address.matches(ADDRESS_PATTERN);
-
     }
 
     /**

@@ -35,22 +35,22 @@ public abstract class User {
      */
     public User(String firstName, String lastName, String emailAddress, String accountPassword, String phoneNumber, String address) throws IllegalArgumentException {
         if (!Validator.validateFirstName(firstName)){
-            throw new IllegalArgumentException("Invalid first name");
+            throw new IllegalArgumentException("First Name needs to be composed of at least two alphabetic characters.");
         }
         if (!Validator.validateLastName(lastName)){
-            throw new IllegalArgumentException("Invalid last name");
+            throw new IllegalArgumentException("Last Name needs to be composed of at least two alphabetic characters.");
         }
         if(!Validator.validateEmail(emailAddress)){
-            throw new IllegalArgumentException("Invalid email address");
+            throw new IllegalArgumentException("Email Address needs to match this form: EXAMPLE@WEBSITE.END");
         }
         if (!Validator.validatePassword(accountPassword)){
-            throw new IllegalArgumentException("Invalid password");
+            throw new IllegalArgumentException("Account Password needs to be at least 8 characters.");
         }
         if (!Validator.validatePhoneNumber(phoneNumber)){
-            throw new IllegalArgumentException("Invalid phone number.");
+            throw new IllegalArgumentException("Phone Number needs to be at least 7 numbers long optionally proceeded by area code");
         }
         if (!Validator.validateAddress(address)){
-            throw new IllegalArgumentException("Invalid address");
+            throw new IllegalArgumentException("Address must match this form: <Unit Number> <Apt. | Unit | Suite> <Name of Street>");
         }
         this.firstName = firstName;
         this.lastName = lastName;
