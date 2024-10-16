@@ -47,10 +47,10 @@ public abstract class User {
             throw new IllegalArgumentException("Account Password needs to be at least 8 characters.");
         }
         if (!Validator.validatePhoneNumber(phoneNumber)){
-            throw new IllegalArgumentException("Phone Number needs to be at least 7 numbers long optionally proceeded by area code");
+            throw new IllegalArgumentException("Phone Number needs at least 7 numbers with optional area code.");
         }
         if (!Validator.validateAddress(address)){
-            throw new IllegalArgumentException("Address must match this form: <Unit Number> <Apt. | Unit | Suite> <Name of Street>");
+            throw new IllegalArgumentException("Address must match this form: <Unit Number> <Apt.|Unit|Suite> <Street>");
         }
         this.firstName = firstName;
         this.lastName = lastName;
