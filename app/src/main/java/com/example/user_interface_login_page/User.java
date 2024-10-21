@@ -13,6 +13,7 @@ public abstract class User {
     private String address;
     private String userID;
     private String userType;
+    private String registrationStatus;
 
     public User() {
         this.firstName = "";
@@ -22,6 +23,7 @@ public abstract class User {
         this.phoneNumber = "";
         this.address = "";
         this.userType = "N/A";
+        this.registrationStatus = "Pending";
     }
 
     /**
@@ -124,5 +126,13 @@ public abstract class User {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(String registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
 }
