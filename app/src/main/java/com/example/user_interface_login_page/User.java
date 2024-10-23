@@ -13,6 +13,7 @@ public abstract class User {
     private String address;
     private String userID;
     private String userType;
+    private String registrationStatus;
 
     public User() {
         this.firstName = "";
@@ -22,6 +23,7 @@ public abstract class User {
         this.phoneNumber = "";
         this.address = "";
         this.userType = "N/A";
+        this.registrationStatus = "pending";
     }
 
     /**
@@ -59,6 +61,7 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.userType = "N/A";
+        this.registrationStatus = "pending";
     }
 
     //Getters and setters associated to all fields of Person class
@@ -124,5 +127,13 @@ public abstract class User {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getRegistrationStatus() {
+        return registrationStatus;
+    }
+
+    public void setRegistrationStatus(String registrationStatus) {
+        this.registrationStatus = registrationStatus;
     }
 }
