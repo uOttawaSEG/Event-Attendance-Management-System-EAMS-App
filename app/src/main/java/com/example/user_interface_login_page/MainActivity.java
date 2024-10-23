@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     // List to hold users
     private static List<User> userList;
 
+    // List to hold pending users
+    protected static List<User> pendingUserList;
+
+    // List to hold rejected users
+    protected static List<User> rejectedUserList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
-        // Initialize task list and adapter
+        // Initialize user lists
         userList = new ArrayList<>();
+        pendingUserList = new ArrayList<>();
+        rejectedUserList = new ArrayList<>();
 
-        // Read tasks from Firebase
+        // Read users from Firebase
         readUsers();
 
         Intent intent = new Intent(MainActivity.this,InitialPage.class);
@@ -62,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // Add user to database and userList
         databaseReference.child(userID).setValue(user);
         userList.add(user);
+        pendingUserList.add(user);
     }
 
     // Method to read users from Firebase into userList
@@ -79,10 +88,12 @@ public class MainActivity extends AppCompatActivity {
                     String address = userSnapshot.child("address").getValue(String.class);
                     String userID = userSnapshot.child("userID").getValue(String.class);
                     String userType = userSnapshot.child("userType").getValue(String.class);
+                    String registrationStatus = userSnapshot.child("registrationStatus").getValue(String.class);
 
                     if (userType.equals("Attendee")) {
                         Attendee temp = new Attendee(firstName,lastName,emailAddress,accountPassword,phoneNumber,address);
                         temp.setUserID(userID);
+                        temp.setRegistrationStatus(registrationStatus);
                         userList.add(temp);
                     }
 
@@ -90,12 +101,14 @@ public class MainActivity extends AppCompatActivity {
                         String organizationName = userSnapshot.child("organizationName").getValue(String.class);
                         Organizer temp = new Organizer(firstName,lastName,emailAddress,accountPassword,phoneNumber,address,organizationName);
                         temp.setUserID(userID);
+                        temp.setRegistrationStatus(registrationStatus);
                         userList.add(temp);
                     }
 
                     if (userType.equals("Administrator")) {
                         Administrator temp = new Administrator(firstName,lastName,emailAddress,accountPassword,phoneNumber,address);
                         temp.setUserID(userID);
+                        temp.setRegistrationStatus(registrationStatus);
                         userList.add(temp);
                     }
                 }
@@ -106,6 +119,15 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "The read failed: " + databaseError.getCode());
             }
         });
+
+        for (int i = 0; i < userList.size(); i++){
+            if (userList.get(i).getRegistrationStatus().equals("pending")) {
+                pendingUserList.add(userList.get(i));
+            }
+            else if (userList.get(i).getRegistrationStatus().equals("rejected")) {
+                rejectedUserList.add(userList.get(i));
+            }
+        }
     }
 
     // Method to check if email exists

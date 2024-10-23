@@ -16,10 +16,7 @@
         android:theme="@style/Theme.User_Interface_Login_Page"
         tools:targetApi="31">
         <activity
-            android:name=".AdministratorWelcomePage"
-            android:exported="false" />
-        <activity
-            android:name=".AdminInboxActivity"
+            android:name=".AdminPendingUsersPage"
             android:exported="false" />
         <activity
             android:name=".IntoAppPage"
