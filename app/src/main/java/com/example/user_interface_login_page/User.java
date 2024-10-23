@@ -23,7 +23,7 @@ public abstract class User {
         this.phoneNumber = "";
         this.address = "";
         this.userType = "N/A";
-        this.registrationStatus = "Pending";
+        this.registrationStatus = "pending";
     }
 
     /**
@@ -61,6 +61,7 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.userType = "N/A";
+        this.registrationStatus = "pending";
     }
 
     //Getters and setters associated to all fields of Person class
