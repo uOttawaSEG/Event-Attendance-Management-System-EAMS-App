@@ -17,6 +17,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import kotlin.collections.ArrayDeque;
+
 public class AdminPendingUsersPage extends AppCompatActivity {
 
     private ListView registrationListView;  // ListView to display pending user registration requests
@@ -28,7 +33,12 @@ public class AdminPendingUsersPage extends AppCompatActivity {
     private TextView addressTextView;
     private TextView organizationNameTextView;
     private TextView userTypeTextView;
+
     private Button goBackButton;
+    private Button acceptButton;
+    private Button rejectButton;
+
+    private User selectedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +64,18 @@ public class AdminPendingUsersPage extends AppCompatActivity {
         registrationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                User currentUser = MainActivity.pendingUserList.get(position);
+                selectedUser = MainActivity.pendingUserList.get(position);
 
-                nameTextView.setText("First Name: " + currentUser.getFirstName());
-                lastNameTextView.setText("Last Name: " + currentUser.getLastName());
-                usernameTextView.setText("Email Address: " + currentUser.getEmailAddress());
-                phoneNumberTextView.setText("Phone Number: " + currentUser.getPhoneNumber());
-                addressTextView.setText("Address: " + currentUser.getAddress());
-                userTypeTextView.setText("User Type: " + currentUser.getUserType());
+                nameTextView.setText("First Name: " + selectedUser.getFirstName());
+                lastNameTextView.setText("Last Name: " + selectedUser.getLastName());
+                usernameTextView.setText("Email: " + selectedUser.getEmailAddress());
+                phoneNumberTextView.setText("Phone Number: " + selectedUser.getPhoneNumber());
+                addressTextView.setText("Address: " + selectedUser.getAddress());
+                userTypeTextView.setText("User Type: " + selectedUser.getUserType());
 
-                if (currentUser instanceof Organizer) {
-                    organizationNameTextView.setText("Organization Name: " + ((Organizer) currentUser).getOrganizationName());
+                if (selectedUser.getUserType().equals("Organizer")) {
+                    Organizer organizer = (Organizer) selectedUser;
+                    organizationNameTextView.setText("Org. Name: " + organizer.getOrganizationName());
                 }
                 else {
                     organizationNameTextView.setText("N/A");
@@ -79,6 +90,38 @@ public class AdminPendingUsersPage extends AppCompatActivity {
             Intent intent = new Intent(AdminPendingUsersPage.this, AdministratorWelcomePage.class);
             startActivity(intent);
         });
+
+        acceptButton.setOnClickListener(v -> {
+            if (selectedUser != null) {
+                String selectedUserId = selectedUser.getUserID();
+                MainActivity.databaseReference.child(selectedUserId).child("registrationStatus").setValue("accepted");
+                registrationAdapter.notifyDataSetChanged();
+
+                Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " added!", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(AdminPendingUsersPage.this, AdminPendingUsersPage.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Please select a user to accept!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        rejectButton.setOnClickListener(v -> {
+            if (selectedUser != null) {
+                String selectedUserId = selectedUser.getUserID();
+                MainActivity.databaseReference.child(selectedUserId).child("registrationStatus").setValue("rejected");
+                registrationAdapter.notifyDataSetChanged();
+
+                Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " rejected!", Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(AdminPendingUsersPage.this, AdminPendingUsersPage.class);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "Please select a user to be rejected!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void initViews() {
@@ -88,10 +131,12 @@ public class AdminPendingUsersPage extends AppCompatActivity {
         usernameTextView = findViewById(R.id.usernameText);
         phoneNumberTextView = findViewById(R.id.phoneNumberText);
         addressTextView = findViewById(R.id.addressText);
-        organizationNameTextView = findViewById(R.id.organizationName);
+        organizationNameTextView = findViewById(R.id.organizationNameText);
         userTypeTextView = findViewById(R.id.userTypeText);
 
         goBackButton = findViewById(R.id.goBackButton);
+        acceptButton = findViewById(R.id.acceptButton);
+        rejectButton = findViewById(R.id.rejectButton);
     }
 
 }

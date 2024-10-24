@@ -24,10 +24,10 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     // Firebase database reference
-    private static DatabaseReference databaseReference;
+    protected static DatabaseReference databaseReference;
 
     // List to hold users
-    private static List<User> userList;
+    protected static List<User> userList;
 
     // List to hold pending users
     protected static List<User> pendingUserList;
@@ -114,6 +114,15 @@ public class MainActivity extends AppCompatActivity {
                         userList.add(temp);
                     }
                 }
+
+                for (int i = 0; i < userList.size(); i++){
+                    if (userList.get(i).getRegistrationStatus().equals("pending")) {
+                        pendingUserList.add(userList.get(i));
+                    }
+                    else if (userList.get(i).getRegistrationStatus().equals("rejected")) {
+                        rejectedUserList.add(userList.get(i));
+                    }
+                }
             }
 
             @Override
@@ -121,15 +130,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "The read failed: " + databaseError.getCode());
             }
         });
-
-        for (int i = 0; i < userList.size(); i++){
-            if (userList.get(i).getRegistrationStatus().equals("pending")) {
-                pendingUserList.add(userList.get(i));
-            }
-            else if (userList.get(i).getRegistrationStatus().equals("rejected")) {
-                rejectedUserList.add(userList.get(i));
-            }
-        }
     }
 
     // Method to check if email exists

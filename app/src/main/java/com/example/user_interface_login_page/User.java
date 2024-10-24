@@ -1,5 +1,7 @@
 package com.example.user_interface_login_page;
 
+import androidx.annotation.NonNull;
+
 public abstract class User {
 
     /**
@@ -135,5 +137,10 @@ public abstract class User {
 
     public void setRegistrationStatus(String registrationStatus) {
         this.registrationStatus = registrationStatus;
+    }
+
+    @NonNull
+    public String toString() {
+        return this.getEmailAddress();
     }
 }
