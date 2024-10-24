@@ -97,13 +97,13 @@ public class AdminPendingUsersPage extends AppCompatActivity {
                 MainActivity.databaseReference.child(selectedUserId).child("registrationStatus").setValue("accepted");
                 registrationAdapter.notifyDataSetChanged();
 
-                Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " added!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " added!", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(AdminPendingUsersPage.this, AdminPendingUsersPage.class);
                 startActivity(intent);
             }
             else {
-                Toast.makeText(getApplicationContext(), "Please select a user to accept!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Please select a user to accept!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -113,13 +113,13 @@ public class AdminPendingUsersPage extends AppCompatActivity {
                 MainActivity.databaseReference.child(selectedUserId).child("registrationStatus").setValue("rejected");
                 registrationAdapter.notifyDataSetChanged();
 
-                Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " rejected!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " rejected!", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(AdminPendingUsersPage.this, AdminPendingUsersPage.class);
                 startActivity(intent);
             }
             else {
-                Toast.makeText(getApplicationContext(), "Please select a user to be rejected!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Please select a user to be rejected!", Toast.LENGTH_SHORT).show();
             }
         });
     }
