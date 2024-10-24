@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminPendingUsersPage">
+    tools:context=".AdminRejectedUsersPage">
 
     <TextView
         android:id="@+id/registrationRejectedTitle"
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/default_top_margin"
-        android:text="Pending User Registration Requests"
+        android:text="Rejected User Registration Requests"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,21 +35,21 @@
         app:layout_constraintWidth_percent="0.5">
 
         <TextView
-            android:id="@+id/nameText"
+            android:id="@+id/nameTextRejected"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50sp"
             android:text="Name" />
 
         <TextView
-            android:id="@+id/lastNameText"
+            android:id="@+id/lastNameTextRejected"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50sp"
             android:text="Last Name" />
 
         <TextView
-            android:id="@+id/usernameText"
+            android:id="@+id/usernameTextRejected"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50sp"
@@ -71,21 +71,21 @@
         app:layout_constraintWidth_percent="0.5">
 
         <TextView
-            android:id="@+id/phoneNumberText"
+            android:id="@+id/phoneNumberTextRejected"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50sp"
             android:text="Phone Number" />
 
         <TextView
-            android:id="@+id/addressText"
+            android:id="@+id/addressTextRejected"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50sp"
             android:text="Address" />
 
         <TextView
-            android:id="@+id/organizationNameText"
+            android:id="@+id/organizationNameTextRejected"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50sp"
@@ -106,31 +106,20 @@
         android:id="@+id/registrationListViewRejected"
         android:layout_width="409sp"
         android:layout_height="300sp"
-        android:layout_marginTop="24sp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rejectButton" />
+        app:layout_constraintTop_toBottomOf="@+id/acceptButtonRejected" />
 
     <Button
         android:id="@+id/acceptButtonRejected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32sp"
-        android:layout_marginTop="16sp"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#227124"
         android:text="Accept"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTypeTextRejected" />
-
-    <Button
-        android:id="@+id/rejectButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16sp"
-        android:layout_marginEnd="32sp"
-        android:backgroundTint="#CA1010"
-        android:text="Reject"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userTypeTextRejected" />
 
     <Button
@@ -143,6 +132,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrationListViewRejected" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
