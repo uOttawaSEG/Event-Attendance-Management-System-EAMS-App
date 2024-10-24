@@ -53,7 +53,13 @@ public class InitialPage extends AppCompatActivity {
             if (MainActivity.emailExists(usernameET.getText().toString())) {
                 User user = MainActivity.getUserFromEmail(usernameET.getText().toString());
                 if (user.getAccountPassword().equals(loginPasswordET.getText().toString())) {
-                    Intent intent = new Intent(InitialPage.this, IntoAppPage.class);
+                    Intent intent;
+                    if (!user.getUserType().equals("Administrator")) {
+                        intent = new Intent(InitialPage.this, IntoAppPage.class);
+                    }
+                    else {
+                        intent = new Intent(InitialPage.this, AdministratorWelcomePage.class);
+                    }
                     Bundle b = new Bundle();
                     b.putString("userID", user.getUserID());
                     intent.putExtras(b);

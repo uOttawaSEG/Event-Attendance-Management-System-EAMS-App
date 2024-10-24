@@ -8,7 +8,7 @@
     tools:context=".AdminPendingUsersPage">
 
     <TextView
-        android:id="@+id/registrationRejectedTitle"
+        android:id="@+id/registrationTitle"
         android:textSize="22sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:id="@+id/linearLayoutLeft"
         android:layout_width="0sp"
         android:layout_height="150sp"
-        android:background="#2196F3"
+        android:background="#C5B0B0"
         android:orientation="vertical"
 
         app:layout_constraintEnd_toStartOf="@+id/linearLayoutRight"
@@ -63,11 +63,11 @@
         android:layout_width="0sp"
         android:layout_height="150sp"
         android:layout_marginTop="16sp"
-        android:background="#C7B53C"
+        android:background="#C53CC7"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayoutLeft"
-        app:layout_constraintTop_toBottomOf="@id/registrationRejectedTitle"
+        app:layout_constraintTop_toBottomOf="@id/registrationTitle"
         app:layout_constraintWidth_percent="0.5">
 
         <TextView
@@ -93,7 +93,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/userTypeTextRejected"
+        android:id="@+id/userTypeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User Type"
@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutRight" />
 
     <ListView
-        android:id="@+id/registrationListViewRejected"
+        android:id="@+id/registrationListView"
         android:layout_width="409sp"
         android:layout_height="300sp"
         android:layout_marginTop="24sp"
@@ -112,7 +112,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rejectButton" />
 
     <Button
-        android:id="@+id/acceptButtonRejected"
+        android:id="@+id/acceptButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32sp"
@@ -120,7 +120,7 @@
         android:backgroundTint="#227124"
         android:text="Accept"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTypeTextRejected" />
+        app:layout_constraintTop_toBottomOf="@+id/userTypeText" />
 
     <Button
         android:id="@+id/rejectButton"
@@ -131,10 +131,10 @@
         android:backgroundTint="#CA1010"
         android:text="Reject"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTypeTextRejected" />
+        app:layout_constraintTop_toBottomOf="@+id/userTypeText" />
 
     <Button
-        android:id="@+id/goBackButtonRejected"
+        android:id="@+id/goBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28sp"
@@ -142,7 +142,7 @@
         android:text="Go Back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrationListViewRejected" />
+        app:layout_constraintTop_toBottomOf="@+id/registrationListView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

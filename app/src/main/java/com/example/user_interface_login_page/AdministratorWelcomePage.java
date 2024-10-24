@@ -11,9 +11,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AdministratorWelcomePage extends AppCompatActivity {
+
     private Button pendingButton;
     private Button rejectedButton;
     private Button logoutButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,23 +31,21 @@ public class AdministratorWelcomePage extends AppCompatActivity {
         initializeEventListener();
     }
 
-
     private void initializeViews(){
         pendingButton = findViewById(R.id.buttonPendingRegistrations);
         rejectedButton = findViewById(R.id.buttonRejectedRegistrations);
         logoutButton = findViewById(R.id.buttonSignOut);
-
     }
 
     private void initializeEventListener(){
 
         pendingButton.setOnClickListener(v -> {
-            Intent intent = new Intent(AdministratorWelcomePage.this, AdminInboxActivity.class);
+            Intent intent = new Intent(AdministratorWelcomePage.this, AdminPendingUsersPage.class);
             startActivity(intent);
         });
 
         rejectedButton.setOnClickListener(v -> {
-            Intent intent = new Intent(AdministratorWelcomePage.this, .class);
+            Intent intent = new Intent(AdministratorWelcomePage.this, AdminRejectedUsersPage.class);
             startActivity(intent);
         });
 
@@ -56,4 +56,7 @@ public class AdministratorWelcomePage extends AppCompatActivity {
 
 
     }
+
+
 }
+

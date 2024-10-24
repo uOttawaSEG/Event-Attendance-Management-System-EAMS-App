@@ -1,35 +1,50 @@
 package com.example.user_interface_login_page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public class AdminPendingUsersPage extends AppCompatActivity {
 
     private ListView registrationListView;  // ListView to display pending user registration requests
     private ArrayAdapter<User> registrationAdapter;  // Adapter to manage the data displayed in the ListView
+    private TextView nameTextView;
+    private TextView lastNameTextView;
+    private TextView usernameTextView;
+    private TextView phoneNumberTextView;
+    private TextView addressTextView;
+    private TextView organizationNameTextView;
+    private TextView userTypeTextView;
+    private Button goBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);  // Enables edge-to-edge display on the activity
         setContentView(R.layout.activity_admin_pending_users_page);  // Sets the layout for the activity
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
-        // Fetch pending registration requests from the Firebase database
-        fetchPendingRequests();
+        //MainActivity.readUsers();
+
+        initViews();
+        initializeEventListeners();
 
         // Set up the ListView and ArrayAdapter to display the pending registration requests
         registrationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MainActivity.pendingUserList);
@@ -39,38 +54,44 @@ public class AdminPendingUsersPage extends AppCompatActivity {
         registrationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                User currentUser = MainActivity.pendingUserList.get(position);
 
-            }
-        });
-    }
+                nameTextView.setText("First Name: " + currentUser.getFirstName());
+                lastNameTextView.setText("Last Name: " + currentUser.getLastName());
+                usernameTextView.setText("Email Address: " + currentUser.getEmailAddress());
+                phoneNumberTextView.setText("Phone Number: " + currentUser.getPhoneNumber());
+                addressTextView.setText("Address: " + currentUser.getAddress());
+                userTypeTextView.setText("User Type: " + currentUser.getUserType());
 
-    // Function to fetch pending registration requests from the Firebase database
-    private void fetchPendingRequests() {
-
-        // Get a reference to the "users" node in the Firebase database
-        DatabaseReference datatabaseReference = FirebaseDatabase.getInstance().getReference("users");
-
-        // Attach a listener to fetch data from the database
-        datatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                pendingRequests.clear();  // Clear the list before adding new data
-                // Iterate over each child (user) in the "users" node
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()){
-                    User user = userSnapshot.getValue(User.class);  // Convert snapshot to User object
-                    // If the user's registration status is "Pending", add them to the list
-                    if (user != null && user.getRegistrationStatus().equals("Pending")) {
-                        pendingRequests.add(user);
-                    }
+                if (currentUser instanceof Organizer) {
+                    organizationNameTextView.setText("Organization Name: " + ((Organizer) currentUser).getOrganizationName());
                 }
-                registrationAdapter.notifyDataSetChanged();  // Notify the adapter that the data has changed
+                else {
+                    organizationNameTextView.setText("N/A");
+                }
             }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Show a toast message if there's an error fetching the data
-                Toast.makeText(AdminPendingUsersPage.this, "Error fetching requests", Toast.LENGTH_SHORT).show();
-            }
         });
     }
+
+    private void initializeEventListeners() {
+        goBackButton.setOnClickListener( v -> {
+            Intent intent = new Intent(AdminPendingUsersPage.this, AdministratorWelcomePage.class);
+            startActivity(intent);
+        });
+    }
+
+    private void initViews() {
+        registrationListView = findViewById(R.id.registrationListView);
+        nameTextView = findViewById(R.id.nameText);
+        lastNameTextView = findViewById(R.id.lastNameText);
+        usernameTextView = findViewById(R.id.usernameText);
+        phoneNumberTextView = findViewById(R.id.phoneNumberText);
+        addressTextView = findViewById(R.id.addressText);
+        organizationNameTextView = findViewById(R.id.organizationName);
+        userTypeTextView = findViewById(R.id.userTypeText);
+
+        goBackButton = findViewById(R.id.goBackButton);
+    }
+
 }

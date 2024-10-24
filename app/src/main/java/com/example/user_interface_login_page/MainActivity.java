@@ -74,11 +74,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method to read users from Firebase into userList
-    private void readUsers() {
+    protected static void readUsers() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 userList.clear();
+                pendingUserList.clear();
+                rejectedUserList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String firstName = userSnapshot.child("firstName").getValue(String.class);
                     String lastName = userSnapshot.child("lastName").getValue(String.class);

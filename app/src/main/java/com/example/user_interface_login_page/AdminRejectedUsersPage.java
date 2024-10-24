@@ -1,6 +1,8 @@
 package com.example.user_interface_login_page;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AdminRejectedUsersPage extends AppCompatActivity {
+
+    private Button goBackButtonRejected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +24,19 @@ public class AdminRejectedUsersPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        initViews();
+        initializeEventListeners();
+    }
+
+    private void initializeEventListeners() {
+        goBackButtonRejected.setOnClickListener(v -> {
+            Intent intent = new Intent(AdminRejectedUsersPage.this, AdministratorWelcomePage.class);
+            startActivity(intent);
+        });
+    }
+
+    private void initViews() {
+        goBackButtonRejected = findViewById(R.id.goBackButtonRejected);
     }
 }

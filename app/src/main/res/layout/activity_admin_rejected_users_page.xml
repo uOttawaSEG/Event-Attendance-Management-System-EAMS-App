@@ -25,7 +25,7 @@
         android:id="@+id/linearLayoutLeft"
         android:layout_width="0sp"
         android:layout_height="150sp"
-        android:background="#2196F3"
+        android:background="#4CAF50"
         android:orientation="vertical"
 
         app:layout_constraintEnd_toStartOf="@+id/linearLayoutRight"
@@ -63,7 +63,7 @@
         android:layout_width="0sp"
         android:layout_height="150sp"
         android:layout_marginTop="16sp"
-        android:background="#C7B53C"
+        android:background="#FF9800"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/linearLayoutLeft"
