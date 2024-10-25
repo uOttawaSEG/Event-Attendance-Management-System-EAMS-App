@@ -2,6 +2,7 @@ package com.example.user_interface_login_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -70,11 +71,15 @@ public class AttendeeRegisterPage extends AppCompatActivity {
                 // Adding attendee to database
                 MainActivity.addUser(attendee);
 
-                Intent intent = new Intent(AttendeeRegisterPage.this, IntoAppPage.class);
+                Intent intent = new Intent(AttendeeRegisterPage.this, InitialPage.class);
                 Bundle b = new Bundle();
                 b.putString("userID", attendee.getUserID());
                 intent.putExtras(b);
+                Toast toast = Toast.makeText(getApplicationContext(),"Your registration request is being processed!", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
                 startActivity(intent);
+
             }
             catch (IllegalArgumentException e) {
                 Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

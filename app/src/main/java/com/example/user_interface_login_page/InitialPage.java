@@ -2,6 +2,7 @@ package com.example.user_interface_login_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -52,22 +53,35 @@ public class InitialPage extends AppCompatActivity {
             // Verifying that username is registered
             if (MainActivity.emailExists(usernameET.getText().toString())) {
                 User user = MainActivity.getUserFromEmail(usernameET.getText().toString());
-                if (user.getAccountPassword().equals(loginPasswordET.getText().toString())) {
-                    Intent intent;
-                    if (!user.getUserType().equals("Administrator")) {
-                        intent = new Intent(InitialPage.this, IntoAppPage.class);
+                if (user.getRegistrationStatus().equals("rejected")){
+                    Toast toast = Toast.makeText(getApplicationContext(),"Registration rejected:( You can contact the admin at 4234242 ", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+                else if ( user.getRegistrationStatus().equals("pending")){
+                    Toast pendingToast= Toast.makeText(getApplicationContext(),"Your registration request is still pending! :p ", Toast.LENGTH_LONG);
+                    pendingToast.setGravity(Gravity.CENTER, 0, 0);
+                    pendingToast.show();
+                }
+                else{
+                    if (user.getAccountPassword().equals(loginPasswordET.getText().toString())) {
+                        Intent intent;
+                        if (!user.getUserType().equals("Administrator")) {
+                            intent = new Intent(InitialPage.this, IntoAppPage.class);
+                        }
+                        else {
+                            intent = new Intent(InitialPage.this, AdministratorWelcomePage.class);
+                        }
+                        Bundle b = new Bundle();
+                        b.putString("userID", user.getUserID());
+                        intent.putExtras(b);
+                        startActivity(intent);
                     }
                     else {
-                        intent = new Intent(InitialPage.this, AdministratorWelcomePage.class);
+                        Toast.makeText(getApplicationContext(), "Email or password is incorrect", Toast.LENGTH_SHORT).show();
                     }
-                    Bundle b = new Bundle();
-                    b.putString("userID", user.getUserID());
-                    intent.putExtras(b);
-                    startActivity(intent);
                 }
-                else {
-                    Toast.makeText(getApplicationContext(), "Email or password is incorrect", Toast.LENGTH_SHORT).show();
-                }
+
             }
             else {
                 Toast.makeText(getApplicationContext(), "Email/username is not registered", Toast.LENGTH_SHORT).show();

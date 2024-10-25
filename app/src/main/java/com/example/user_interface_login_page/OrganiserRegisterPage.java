@@ -2,6 +2,7 @@ package com.example.user_interface_login_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -75,10 +76,13 @@ public class OrganiserRegisterPage extends AppCompatActivity {
                 // Adding organizer to database
                 MainActivity.addUser(organizer);
 
-                Intent intent = new Intent(OrganiserRegisterPage.this, IntoAppPage.class);
+                Intent intent = new Intent(OrganiserRegisterPage.this, InitialPage.class);
                 Bundle b = new Bundle();
                 b.putString("userID", organizer.getUserID());
                 intent.putExtras(b);
+                Toast registrationToast= Toast.makeText(getApplicationContext(),"Your registration request is now being approved!", Toast.LENGTH_LONG);
+                registrationToast.setGravity(Gravity.CENTER, 0, 0);
+                registrationToast.show();
                 startActivity(intent);
             }
             catch (IllegalArgumentException e) {
