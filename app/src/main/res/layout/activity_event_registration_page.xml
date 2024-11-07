@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventRegistrationPage">
+
+    <TextView
+        android:id="@+id/headerEventCreation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:text="Event Creation"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Left LinearLayout -->
+    <LinearLayout
+        android:id="@+id/linearLayoutLeft"
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginBottom="8sp"
+        android:background="#2196F3"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/createButtonEvent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayoutRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerEventCreation"
+        app:layout_constraintWidth_percent="0.5">
+
+        <!-- Add your views here for the left LinearLayout -->
+
+        <TextView
+            android:id="@+id/eventTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:gravity="center"
+            android:text="Event Title: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Description: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Date: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/startTimeText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Start Time: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/endTimeText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="End Time: "
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/eventAddressText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:gravity="center"
+            android:text="Event Address: "
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Right LinearLayout -->
+    <LinearLayout
+        android:id="@+id/linearLayoutRight"
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:layout_marginTop="16sp"
+        android:layout_marginBottom="8sp"
+        android:background="#C7B53C"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/createButtonEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayoutLeft"
+        app:layout_constraintTop_toBottomOf="@+id/headerEventCreation"
+        app:layout_constraintWidth_percent="0.5">
+
+        <!-- Add your views here for the right LinearLayout -->
+
+        <EditText
+            android:id="@+id/eventTitleET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Event Title Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/descriptionET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Description Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/dateET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Date Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/startTimeET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Start Time Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/endTimeET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="End Time Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/eventAddressET"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_read_and_edit_text_height"
+            android:layout_marginHorizontal="@dimen/default_margin_sign_up_fields"
+            android:layout_marginTop="@dimen/default_top_margin"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Event Address Here"
+            android:inputType="text"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/createButtonEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32sp"
+        android:layout_marginBottom="8sp"
+        android:text="Create Event!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/backButtonEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32sp"
+        android:layout_marginBottom="8sp"
+        android:text="Go Back!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

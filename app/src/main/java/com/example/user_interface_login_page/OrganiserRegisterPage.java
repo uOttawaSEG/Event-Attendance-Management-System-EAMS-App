@@ -80,7 +80,7 @@ public class OrganiserRegisterPage extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putString("userID", organizer.getUserID());
                 intent.putExtras(b);
-                Toast registrationToast= Toast.makeText(getApplicationContext(),"Your registration request is now being approved!", Toast.LENGTH_LONG);
+                Toast registrationToast= Toast.makeText(getApplicationContext(),"Your registration request is now being processed!", Toast.LENGTH_LONG);
                 registrationToast.setGravity(Gravity.CENTER, 0, 0);
                 registrationToast.show();
                 startActivity(intent);
