@@ -28,9 +28,6 @@
             android:name=".AdminRejectedUsersPage"
             android:exported="false" />
         <activity
-            android:name=".admin_rejected_users_page"
-            android:exported="false" />
-        <activity
             android:name=".AdminPendingUsersPage"
             android:exported="false" />
         <activity
