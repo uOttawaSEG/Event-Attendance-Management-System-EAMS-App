@@ -11,16 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import kotlin.collections.ArrayDeque;
 
 public class AdminPendingUsersPage extends AppCompatActivity {
 
@@ -94,7 +88,7 @@ public class AdminPendingUsersPage extends AppCompatActivity {
         acceptButton.setOnClickListener(v -> {
             if (selectedUser != null) {
                 String selectedUserId = selectedUser.getUserID();
-                MainActivity.databaseReference.child(selectedUserId).child("registrationStatus").setValue("accepted");
+                MainActivity.databaseReferenceUsers.child(selectedUserId).child("registrationStatus").setValue("accepted");
                 registrationAdapter.notifyDataSetChanged();
 
                 Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " added!", Toast.LENGTH_SHORT).show();
@@ -110,7 +104,7 @@ public class AdminPendingUsersPage extends AppCompatActivity {
         rejectButton.setOnClickListener(v -> {
             if (selectedUser != null) {
                 String selectedUserId = selectedUser.getUserID();
-                MainActivity.databaseReference.child(selectedUserId).child("registrationStatus").setValue("rejected");
+                MainActivity.databaseReferenceUsers.child(selectedUserId).child("registrationStatus").setValue("rejected");
                 registrationAdapter.notifyDataSetChanged();
 
                 Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " rejected!", Toast.LENGTH_SHORT).show();

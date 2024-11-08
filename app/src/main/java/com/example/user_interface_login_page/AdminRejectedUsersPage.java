@@ -86,7 +86,7 @@ public class AdminRejectedUsersPage extends AppCompatActivity {
         acceptButton.setOnClickListener(v -> {
             if (selectedUser != null) {
                 String selectedUserId = selectedUser.getUserID();
-                MainActivity.databaseReference.child(selectedUserId).child("registrationStatus").setValue("accepted");
+                MainActivity.databaseReferenceUsers.child(selectedUserId).child("registrationStatus").setValue("accepted");
                 registrationAdapter.notifyDataSetChanged();
 
                 Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " added!", Toast.LENGTH_SHORT).show();
