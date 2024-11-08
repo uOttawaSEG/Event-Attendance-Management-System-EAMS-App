@@ -1,5 +1,6 @@
 package com.example.user_interface_login_page;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -31,7 +32,8 @@ public class OrganizerWelcomePage extends AppCompatActivity {
 
     private void setOnclickListeners() {
         this.buttonCreateEvent.setOnClickListener( v -> {
-            //Create intent for event creation page
+            Intent intent = new Intent(OrganizerWelcomePage.this, EventRegistrationPage.class);
+            startActivity(intent);
         });
 
         this.buttonUpcomingEvents.setOnClickListener( v -> {

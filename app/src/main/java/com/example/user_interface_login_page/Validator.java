@@ -1,5 +1,10 @@
 package com.example.user_interface_login_page;
 
+import android.app.TimePickerDialog;
+
+import java.sql.Time;
+import java.util.Date;
+
 public class Validator {
 
     private static final String FIRSTNAME_PATERN = "[a-zA-Z]+";
@@ -75,5 +80,12 @@ public class Validator {
         return !organizationName.isEmpty() && organizationName.matches(ORGANIZATIONNAME_PATERN);
     }
 
+    public static boolean compareTimes(Time startTime, Time endTime) {
+        return startTime.before(endTime);
+    }
 
+    public static boolean validateDate(Date enteredDate) {
+        Date currentDate = new Date();
+        return enteredDate.after(currentDate) || enteredDate.equals(currentDate);
+    }
 }

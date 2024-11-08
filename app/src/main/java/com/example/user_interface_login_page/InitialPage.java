@@ -66,11 +66,15 @@ public class InitialPage extends AppCompatActivity {
                 else{
                     if (user.getAccountPassword().equals(loginPasswordET.getText().toString())) {
                         Intent intent;
-                        if (!user.getUserType().equals("Administrator")) {
-                            intent = new Intent(InitialPage.this, IntoAppPage.class);
+                        if (user.getUserType().equals("Administrator")) {
+                            intent = new Intent(InitialPage.this, AdministratorWelcomePage.class);
+
+                        }
+                        else if (user.getUserType().equals("Organizer")) {
+                            intent = new Intent(InitialPage.this, OrganizerWelcomePage.class);
                         }
                         else {
-                            intent = new Intent(InitialPage.this, AdministratorWelcomePage.class);
+                            intent = new Intent(InitialPage.this, IntoAppPage.class);
                         }
                         Bundle b = new Bundle();
                         b.putString("userID", user.getUserID());
