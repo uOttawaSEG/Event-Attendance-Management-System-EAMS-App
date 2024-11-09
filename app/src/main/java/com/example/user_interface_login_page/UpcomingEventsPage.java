@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,14 +15,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.w3c.dom.Text;
-
-import java.util.List;
-
-public class UpcomingEvents extends AppCompatActivity {
-
-
-
+public class UpcomingEventsPage extends AppCompatActivity {
     private ArrayAdapter<Event> upcomingEventsAdapter;
     private TextView eventNameView;
     private TextView eventDateView;
@@ -35,23 +27,22 @@ public class UpcomingEvents extends AppCompatActivity {
     private Button backButton;
     private Button attendeesViewButton;
     private Event selectedEvent;
-    Organizer organizer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_upcoming_events);
+        setContentView(R.layout.activity_upcoming_events_page);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         initViews();
         initializeEventListeners();
-
+        initializeUpcomingEventsAdapter();
+    }
+    private void initializeUpcomingEventsAdapter() {
         upcomingEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MainActivity.upcomingEventList);
         eventsListView.setAdapter(upcomingEventsAdapter);
 
@@ -63,21 +54,23 @@ public class UpcomingEvents extends AppCompatActivity {
                 eventNameView.setText("Event Title: " + selectedEvent.getEventTitle());
                 eventDescriptionView.setText("Desc.: " + selectedEvent.getDescription());
                 eventDateView.setText("Date: " + selectedEvent.getEventDateMillis());
-                eventTimeView.setText("From: " + selectedEvent.getEventStartTimeMillis() + "till: " + selectedEvent.getEventEndTimeMillis());
+                eventTimeView.setText("From: " + selectedEvent.getEventStartTimeMillis() + " till: " + selectedEvent.getEventEndTimeMillis());
                 eventLocationView.setText("Address: " + selectedEvent.getEventAddress());
                 organizerNameView.setText("Organizer: " + selectedEvent.getOrganizerID());
-
             }
+        });
+    }
+
     private void initializeEventListeners() {
         backButton.setOnClickListener(v -> {
-            Intent intent = new Intent (UpcomingEvents.this,OrganizerWelcomePage.class);
-            startActivity(intent);
-        });
-        attendeesViewButton.setOnClickListener(v -> {
-            Intent intent = new Intent (UpcomingEvents.this,...);
+            Intent intent = new Intent(UpcomingEventsPage.this, OrganizerWelcomePage.class);
             startActivity(intent);
         });
 
+        //attendeesViewButton.setOnClickListener(v -> {
+        // Intent intent = new Intent(UpcomingEvents.this, ViewAttendeesActivity.class);
+        // startActivity(intent);
+        // });
     }
 
     private void initViews() {
@@ -90,8 +83,5 @@ public class UpcomingEvents extends AppCompatActivity {
         attendeesViewButton = findViewById(R.id.viewAttendeesButton);
         organizerNameView = findViewById(R.id.organizerNameText);
         eventDescriptionView = findViewById(R.id.eventDescriptionText);
-        attendeesViewButton = findViewById(R.id.viewAttendeesButton);
     }
-
-
 }
