@@ -24,6 +24,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     // Firebase database reference
+
+    protected static DatabaseReference databaseReference;
     protected static DatabaseReference databaseReferenceUsers;
     protected static DatabaseReference databaseReferenceEvents;
 
@@ -51,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Initialize Firebase database reference
-        databaseReferenceUsers = FirebaseDatabase.getInstance().getReference("users");
-        databaseReferenceEvents = FirebaseDatabase.getInstance().getReference("events");
+        databaseReference= FirebaseDatabase.getInstance().getReference("users");
+        databaseReferenceUsers = databaseReference.child("users");
+        databaseReferenceEvents = databaseReference.child("events");
 
         // Initialize user lists
         userList = new ArrayList<>();
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     // Method to add event
     protected static void addEvent(Event event) {
         // Generate and set user ID
-        String eventID = databaseReferenceUsers.push().getKey();
+        String eventID = databaseReferenceEvents.push().getKey();
         event.setEventID(eventID);
 
         // Add user to database and userList
@@ -167,15 +170,15 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String eventTitle = userSnapshot.child("eventTitle").getValue(String.class);
                     String description = userSnapshot.child("description").getValue(String.class);
-                    Date eventDate = userSnapshot.child("eventDate").getValue(Date.class);
-                    Time eventStartTime = userSnapshot.child("eventStartTime").getValue(Time.class);
-                    Time eventEndTime = userSnapshot.child("eventEndTime").getValue(Time.class);
+                    long eventDateMillis = userSnapshot.child("eventDateMillis").getValue(Long.class);
+                    long eventStartTimeMillis = userSnapshot.child("eventStartTimeMillis").getValue(Long.class);
+                    long eventEndTimeMillis = userSnapshot.child("eventEndTimeMillis").getValue(Long.class);
                     String eventAddress = userSnapshot.child("eventAddress").getValue(String.class);
                     Boolean autoRegistration = userSnapshot.child("autoRegistration").getValue(Boolean.class);
                     String organizerID = userSnapshot.child("organizerID").getValue(String.class);
                     String eventID = userSnapshot.child("eventID").getValue(String.class);
 
-                    Event temp = new Event(eventTitle, description, eventDate, eventStartTime, eventEndTime, eventAddress, autoRegistration,organizerID);
+                    Event temp = new Event(eventTitle, description, eventDateMillis, eventStartTimeMillis, eventEndTimeMillis, eventAddress, autoRegistration,organizerID);
                     temp.setEventID(eventID);
 
                     ArrayList<String> attendeeIDs = new ArrayList<>();

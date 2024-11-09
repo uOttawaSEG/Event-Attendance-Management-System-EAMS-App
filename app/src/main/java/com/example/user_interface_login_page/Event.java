@@ -8,9 +8,9 @@ import java.util.List;
 public class Event {
     private String eventTitle;
     private String description;
-    private Date eventDate;
-    private Time eventStartTime;
-    private Time eventEndTime;
+    private long eventDateMillis;
+    private long eventStartTimeMillis;
+    private long eventEndTimeMillis;
     private String eventAddress;
     private boolean autoRegistration;
 
@@ -19,19 +19,19 @@ public class Event {
 
     private String eventID;
 
-    public Event(String eventTitle, String description, Date eventDate, Time eventStartTime, Time eventEndTime, String eventAddress, boolean autoRegistration, String organizerID) throws IllegalArgumentException {
-        if (!Validator.validateDate(eventDate)) {
+    public Event(String eventTitle, String description, long eventDateMillis, long eventStartTimeMillis, long eventEndTimeMillis, String eventAddress, boolean autoRegistration, String organizerID) throws IllegalArgumentException {
+        if (!Validator.validateDate(eventDateMillis)) {
             throw new IllegalArgumentException("Date has already passed!");
         }
-        if (!Validator.compareTimes(eventStartTime, eventEndTime)) {
+        if (!Validator.compareTimes(eventStartTimeMillis, eventEndTimeMillis)) {
             throw new IllegalArgumentException("Event end date is before start date!");
         }
 
         this.eventTitle = eventTitle;
         this.description = description;
-        this.eventDate = eventDate;
-        this.eventStartTime = eventStartTime;
-        this.eventEndTime = eventEndTime;
+        this.eventDateMillis = eventDateMillis;
+        this.eventStartTimeMillis = eventStartTimeMillis;
+        this.eventEndTimeMillis = eventEndTimeMillis;
         this.eventAddress = eventAddress;
         this.autoRegistration = autoRegistration;
         this.organizerID = organizerID;
@@ -42,60 +42,56 @@ public class Event {
         return eventTitle;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public Date getEventDate() {
-        return eventDate;
-    }
-
-    public Time getEventStartTime() {
-        return eventStartTime;
-    }
-
-    public Time getEventEndTime() {
-        return eventEndTime;
-    }
-
-    public String getEventAddress() {
-        return eventAddress;
-    }
-
-    public boolean getAutoRegistration() {
-        return autoRegistration;
-    }
-
     public void setEventTitle(String eventTitle) {
         this.eventTitle = eventTitle;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
+    public long getEventDateMillis() {
+        return eventDateMillis;
     }
 
-    public void setEventStartTime(Time eventStartTime) {
-        this.eventStartTime = eventStartTime;
+    public void setEventDateMillis(long eventDateMillis) {
+        this.eventDateMillis = eventDateMillis;
     }
 
-    public void setEventEndTime(Time eventEndTime) {
-        this.eventEndTime = eventEndTime;
+    public long getEventStartTimeMillis() {
+        return eventStartTimeMillis;
+    }
+
+    public void setEventStartTimeMillis(long eventStartTimeMillis) {
+        this.eventStartTimeMillis = eventStartTimeMillis;
+    }
+
+    public long getEventEndTimeMillis() {
+        return eventEndTimeMillis;
+    }
+
+    public void setEventEndTimeMillis(long eventEndTimeMillis) {
+        this.eventEndTimeMillis = eventEndTimeMillis;
+    }
+
+    public String getEventAddress() {
+        return eventAddress;
     }
 
     public void setEventAddress(String eventAddress) {
         this.eventAddress = eventAddress;
     }
 
-    public void setAutoRegistration(boolean autoRegistration) {
-        this.autoRegistration = autoRegistration;
-    }
-
     public boolean isAutoRegistration() {
         return autoRegistration;
+    }
+
+    public void setAutoRegistration(boolean autoRegistration) {
+        this.autoRegistration = autoRegistration;
     }
 
     public String getOrganizerID() {

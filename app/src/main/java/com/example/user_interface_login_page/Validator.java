@@ -80,12 +80,12 @@ public class Validator {
         return !organizationName.isEmpty() && organizationName.matches(ORGANIZATIONNAME_PATERN);
     }
 
-    public static boolean compareTimes(Time startTime, Time endTime) {
-        return startTime.before(endTime);
+    public static boolean compareTimes(Long startTime, Long endTime) {
+        return startTime<endTime;
     }
 
-    public static boolean validateDate(Date enteredDate) {
-        Date currentDate = new Date();
-        return enteredDate.after(currentDate) || enteredDate.equals(currentDate);
+    public static boolean validateDate(Long enteredDate) {
+        Long currentDate = new Date().getTime();
+        return enteredDate > currentDate;
     }
 }
