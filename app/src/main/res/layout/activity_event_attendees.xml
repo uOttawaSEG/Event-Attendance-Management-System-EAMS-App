@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventAttendees">
+
+    <TextView
+        android:id="@+id/registrationTitle"
+        android:textSize="22sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:text="Attendee Event Registration Requests"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLeft"
+        android:layout_width="0sp"
+        android:layout_height="150sp"
+        android:background="#C5B0B0"
+        android:orientation="vertical"
+
+        app:layout_constraintEnd_toStartOf="@+id/linearLayoutRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutRight"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintWidth_percent="0.5">
+
+        <TextView
+            android:id="@+id/nameText"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/lastNameText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Last Name" />
+
+        <TextView
+            android:id="@+id/usernameText"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:text="Username" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRight"
+        android:layout_width="0sp"
+        android:layout_height="150sp"
+        android:layout_marginTop="16sp"
+        android:background="#42D5D1"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayoutLeft"
+        app:layout_constraintTop_toBottomOf="@id/registrationTitle"
+        app:layout_constraintWidth_percent="0.5">
+
+        <TextView
+            android:id="@+id/phoneNumberText"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:gravity="center"
+            android:text="Phone Number" />
+
+        <TextView
+            android:id="@+id/addressText"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="Address" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/userTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attendees"
+        android:layout_marginTop="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutRight" />
+
+    <ListView
+        android:id="@+id/attendeeEventListView"
+        android:layout_width="409sp"
+        android:layout_height="300sp"
+        android:layout_marginTop="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rejectRegistrationButton" />
+
+    <Button
+        android:id="@+id/acceptRegistrationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32sp"
+        android:layout_marginTop="16sp"
+        android:backgroundTint="#227124"
+        android:text="Accept"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userTypeText" />
+
+    <Button
+        android:id="@+id/rejectRegistrationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:layout_marginEnd="32sp"
+        android:backgroundTint="#CA1010"
+        android:text="Reject"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userTypeText" />
+
+    <Button
+        android:id="@+id/goBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28sp"
+        android:backgroundTint="#1C42A6"
+        android:text="Go Back"
+        app:layout_constraintEnd_toStartOf="@+id/buttonApproveAll"
+        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/attendeeEventListView" />
+
+    <Button
+        android:id="@+id/buttonApproveAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Approve All"
+        android:backgroundTint="#227124"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/attendeeEventListView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,6 +28,8 @@ public class PastEventsPage extends AppCompatActivity {
     private Button pastBackButton;
     private Button pastAttendeesViewButton;
     private Event selectedPastEvent;
+    private Button deletePastEvent;
+    Organizer organizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,11 @@ public class PastEventsPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        String userID = b.getString("userID");
+        organizer = (Organizer) MainActivity.getUserFromID(userID);
+
         initViews();
         initializeEventListeners();
         initializePastEventListeners();
@@ -75,12 +82,16 @@ public class PastEventsPage extends AppCompatActivity {
         pastAttendeesViewButton = findViewById(R.id.viewAttendeesButton);
         pastEventTimeView = findViewById(R.id.eventTimeText);
         pastEventsListView = findViewById(R.id.eventsListView);
+        deletePastEvent = findViewById(R.id.buttonDeletePast);
 
     }
 
     private void initializeEventListeners() {
         pastBackButton.setOnClickListener(v -> {
             Intent intent = new Intent(PastEventsPage.this, OrganizerWelcomePage.class);
+            Bundle b = new Bundle();
+            b.putString("userID", organizer.getUserID());
+            intent.putExtras(b);
             startActivity(intent);
         });
     }

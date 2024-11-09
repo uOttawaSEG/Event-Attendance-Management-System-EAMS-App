@@ -29,6 +29,8 @@ public class UpcomingEventsPage extends AppCompatActivity {
     private Button backButton;
     private Button attendeesViewButton;
     private Event selectedEvent;
+    private Button deleteButton;
+    Organizer organizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,12 @@ public class UpcomingEventsPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        String userID = b.getString("userID");
+        organizer = (Organizer) MainActivity.getUserFromID(userID);
+
         initViews();
         initializeEventListeners();
         initializeUpcomingEventsAdapter();
@@ -70,13 +78,22 @@ public class UpcomingEventsPage extends AppCompatActivity {
     private void initializeEventListeners() {
         backButton.setOnClickListener(v -> {
             Intent intent = new Intent(UpcomingEventsPage.this, OrganizerWelcomePage.class);
+            Bundle b = new Bundle();
+            b.putString("userID", organizer.getUserID());
+            intent.putExtras(b);
             startActivity(intent);
         });
 
-        //attendeesViewButton.setOnClickListener(v -> {
-        // Intent intent = new Intent(UpcomingEvents.this, ViewAttendeesActivity.class);
-        // startActivity(intent);
-        // });
+        attendeesViewButton.setOnClickListener(v -> {
+            Intent intent = new Intent(UpcomingEventsPage.this, EventAttendees.class);
+            Bundle b = new Bundle();
+            b.putString("eventID", selectedEvent.getEventID());
+            intent.putExtras(b);
+            startActivity(intent);
+
+        });
+
+
     }
 
     private void initViews() {
@@ -89,5 +106,6 @@ public class UpcomingEventsPage extends AppCompatActivity {
         attendeesViewButton = findViewById(R.id.viewAttendeesButton);
         organizerNameView = findViewById(R.id.organizerNameText);
         eventDescriptionView = findViewById(R.id.eventDescriptionText);
+        deleteButton = findViewById(R.id.buttonDelete);
     }
 }

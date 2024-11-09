@@ -1,8 +1,6 @@
 package com.example.user_interface_login_page;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Event {
@@ -15,7 +13,8 @@ public class Event {
     private boolean autoRegistration;
 
     private String organizerID;
-    private List<String> attendeeIDs;
+    private List<String> pendingAttendeeIDs;
+    private List<String> acceptedAttendeeIDs;
 
     private String eventID;
 
@@ -35,7 +34,8 @@ public class Event {
         this.eventAddress = eventAddress;
         this.autoRegistration = autoRegistration;
         this.organizerID = organizerID;
-        this.attendeeIDs = new ArrayList<String>();
+        this.pendingAttendeeIDs = new ArrayList<String>();
+        this.acceptedAttendeeIDs = new ArrayList<String>();
     }
 
     public String getEventTitle() {
@@ -102,12 +102,12 @@ public class Event {
         this.organizerID = organizerID;
     }
 
-    public List<String> getAttendeeIDs() {
-        return attendeeIDs;
+    public List<String> getPendingAttendeeIDs() {
+        return pendingAttendeeIDs;
     }
 
-    public void setAttendeeIDs(List<String> attendeeIDs) {
-        this.attendeeIDs = attendeeIDs;
+    public void setPendingAttendeeIDs(List<String> pendingAttendeeIDs) {
+        this.pendingAttendeeIDs = pendingAttendeeIDs;
     }
 
     public String getEventID() {
@@ -119,6 +119,14 @@ public class Event {
     }
 
     public void registerAttendee(String attendeeID) {
-        this.attendeeIDs.add(attendeeID);
+        this.pendingAttendeeIDs.add(attendeeID);
+    }
+
+    public List<String> getAcceptedAttendeeIDs() {
+        return acceptedAttendeeIDs;
+    }
+
+    public void setAcceptedAttendeeIDs(List<String> acceptedAttendeeIDs) {
+        this.acceptedAttendeeIDs = acceptedAttendeeIDs;
     }
 }

@@ -23,7 +23,7 @@
     <LinearLayout
         android:id="@+id/linearLayoutEventLeft"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="250sp"
         android:orientation="vertical"
         android:padding="12dp"
         android:background="#E0E0E0"
@@ -45,26 +45,26 @@
         <TextView
             android:id="@+id/eventDateText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="67dp"
             android:gravity="center"
+            android:paddingVertical="8dp"
             android:text="Date"
-            android:textSize="18sp"
-            android:paddingVertical="8dp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/eventTimeText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="137dp"
             android:gravity="center"
+            android:paddingVertical="8dp"
             android:text="Time"
-            android:textSize="18sp"
-            android:paddingVertical="8dp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutEventRight"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="250sp"
         android:orientation="vertical"
         android:padding="12dp"
         android:background="#D3A4FF"
@@ -86,20 +86,20 @@
         <TextView
             android:id="@+id/organizerNameText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="65dp"
             android:gravity="center"
+            android:paddingVertical="8dp"
             android:text="Organizer"
-            android:textSize="18sp"
-            android:paddingVertical="8dp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/eventDescriptionText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="125dp"
             android:gravity="center"
+            android:paddingVertical="8dp"
             android:text="Description"
-            android:textSize="18sp"
-            android:paddingVertical="8dp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <ListView
@@ -116,22 +116,39 @@
         android:id="@+id/backToMainButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="24dp"
+        android:backgroundTint="#1C42A6"
         android:text="Back"
         android:textSize="18sp"
-        android:backgroundTint="#1C42A6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/eventsListView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintVertical_bias="0.189" />
 
     <Button
         android:id="@+id/viewAttendeesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:backgroundTint="#1C42A6"
         android:text="View Attendees"
         android:textSize="18sp"
-        android:backgroundTint="#1C42A6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/eventsListView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintVertical_bias="0.189" />
+
+    <Button
+        android:id="@+id/buttonDeletePast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#EF0616"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/viewAttendeesButton"
+        app:layout_constraintStart_toEndOf="@+id/backToMainButton"
+        app:layout_constraintTop_toBottomOf="@+id/eventsListView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
