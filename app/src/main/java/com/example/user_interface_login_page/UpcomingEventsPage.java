@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.Date;
+
 public class UpcomingEventsPage extends AppCompatActivity {
     private ArrayAdapter<Event> upcomingEventsAdapter;
     private TextView eventNameView;
@@ -41,8 +43,10 @@ public class UpcomingEventsPage extends AppCompatActivity {
         initViews();
         initializeEventListeners();
         initializeUpcomingEventsAdapter();
+        MainActivity.updateEventsLists();
     }
     private void initializeUpcomingEventsAdapter() {
+
         upcomingEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MainActivity.upcomingEventList);
         eventsListView.setAdapter(upcomingEventsAdapter);
 
@@ -50,13 +54,15 @@ public class UpcomingEventsPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedEvent = MainActivity.upcomingEventList.get(position);
-
                 eventNameView.setText("Event Title: " + selectedEvent.getEventTitle());
-                eventDescriptionView.setText("Desc.: " + selectedEvent.getDescription());
-                eventDateView.setText("Date: " + selectedEvent.getEventDateMillis());
-                eventTimeView.setText("From: " + selectedEvent.getEventStartTimeMillis() + " till: " + selectedEvent.getEventEndTimeMillis());
+                eventDescriptionView.setText("Desc: " + selectedEvent.getDescription());
+                Date eventDate = new Date(selectedEvent.getEventDateMillis());
+                eventDateView.setText("Date: " + eventDate.toString());
+                Date startEventDate = new Date(selectedEvent.getEventStartTimeMillis());
+                Date endEventDate = new Date(selectedEvent.getEventEndTimeMillis());
+                eventTimeView.setText("From: " + startEventDate.toString() + " till: " + endEventDate.toString());
                 eventLocationView.setText("Address: " + selectedEvent.getEventAddress());
-                organizerNameView.setText("Organizer: " + selectedEvent.getOrganizerID());
+                organizerNameView.setText("Organizer: " + MainActivity.getUserFromID(selectedEvent.getOrganizerID()).getFirstName());
             }
         });
     }

@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         rejectedUserList = new ArrayList<>();
         eventList = new ArrayList<>();
         upcomingEventList = new ArrayList<>();
+        pastEventList = new ArrayList<>();
 
         // Read users and events from Firebase
         readUsers();
@@ -115,8 +116,6 @@ public class MainActivity extends AppCompatActivity {
                 userList.clear();
                 pendingUserList.clear();
                 rejectedUserList.clear();
-                eventList.clear();
-                upcomingEventList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String firstName = userSnapshot.child("firstName").getValue(String.class);
                     String lastName = userSnapshot.child("lastName").getValue(String.class);
@@ -180,8 +179,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 eventList.clear();
-                upcomingEventList.clear();
-                pastEventList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String eventTitle = userSnapshot.child("eventTitle").getValue(String.class);
                     String description = userSnapshot.child("description").getValue(String.class);
@@ -205,12 +202,7 @@ public class MainActivity extends AppCompatActivity {
 
                     eventList.add(temp);
 
-                    if (eventDateMillis > System.currentTimeMillis()){
-                        upcomingEventList.add(temp);
-                    }
-                    else{
-                        pastEventList.add(temp);
-                    }
+
                 }
             }
 
@@ -260,4 +252,16 @@ public class MainActivity extends AppCompatActivity {
         }
         throw new IllegalArgumentException("Invalid event ID");
     }
+
+    protected static void updateEventsLists(){
+        upcomingEventList.clear();
+        pastEventList.clear();
+        for (int i =0 ; i < eventList.size(); i++)
+            if (eventList.get(i).getEventStartTimeMillis() > System.currentTimeMillis()){
+                upcomingEventList.add(eventList.get(i));
+            }
+            else{
+                pastEventList.add(eventList.get(i));
+            }
+        }
 }

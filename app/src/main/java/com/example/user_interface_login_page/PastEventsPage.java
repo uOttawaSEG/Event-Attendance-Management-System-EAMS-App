@@ -42,10 +42,12 @@ public class PastEventsPage extends AppCompatActivity {
         initViews();
         initializeEventListeners();
         initializePastEventListeners();
+        MainActivity.updateEventsLists();
     }
 
     private void initializePastEventListeners() {
-        pastEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MainActivity.upcomingEventList);
+
+        pastEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MainActivity.pastEventList);
         pastEventsListView.setAdapter(pastEventsAdapter);
 
         pastEventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
