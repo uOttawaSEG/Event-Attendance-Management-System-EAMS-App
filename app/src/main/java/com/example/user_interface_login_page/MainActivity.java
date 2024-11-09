@@ -88,12 +88,16 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to add event
     protected static void addEvent(Event event) {
-        // Generate and set user ID
+        // Generate and set event ID
         String eventID = databaseReferenceEvents.push().getKey();
         event.setEventID(eventID);
 
-        // Add user to database and userList
+        // Add user to database and eventList
         databaseReferenceEvents.child(eventID).setValue(event);
+
+        // Add event to organizer
+        String tempKey = databaseReferenceUsers.child(event.getOrganizerID()).child("eventIDs").push().getKey();
+        databaseReferenceUsers.child(event.getOrganizerID()).child("eventIDs").child(tempKey).setValue(eventID);
     }
 
     // Method to read users from Firebase into userList
