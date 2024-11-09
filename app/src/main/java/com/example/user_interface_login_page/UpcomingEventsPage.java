@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,13 +86,23 @@ public class UpcomingEventsPage extends AppCompatActivity {
         });
 
         attendeesViewButton.setOnClickListener(v -> {
-            Intent intent = new Intent(UpcomingEventsPage.this, EventAttendees.class);
-            Bundle b = new Bundle();
-            b.putString("eventID", selectedEvent.getEventID());
-            intent.putExtras(b);
-            startActivity(intent);
+            if(selectedEvent!= null) {
 
-        });
+
+                if (selectedEvent.isAutoRegistration()) {
+                    Toast.makeText(this, "This event has auto registration!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(UpcomingEventsPage.this, EventAttendees.class);
+                    Bundle b = new Bundle();
+                    b.putString("eventID", selectedEvent.getEventID());
+                    intent.putExtras(b);
+                    startActivity(intent);
+                }
+            }else{
+                Toast.makeText(this,"Please select an event", Toast.LENGTH_SHORT).show();
+            }
+            });
+
 
 
     }

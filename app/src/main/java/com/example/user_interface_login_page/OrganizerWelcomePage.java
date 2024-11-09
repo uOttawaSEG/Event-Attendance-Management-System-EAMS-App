@@ -47,11 +47,17 @@ public class OrganizerWelcomePage extends AppCompatActivity {
 
         this.buttonUpcomingEvents.setOnClickListener( v -> {
             Intent intent = new Intent(OrganizerWelcomePage.this,UpcomingEventsPage.class);
+            Bundle b = new Bundle();
+            b.putString("userID", organizer.getUserID());
+            intent.putExtras(b);
             startActivity(intent);
         });
 
         this.buttonPastEvents.setOnClickListener( v -> {
             Intent intent = new Intent (OrganizerWelcomePage.this,PastEventsPage.class);
+            Bundle b = new Bundle();
+            b.putString("userID", organizer.getUserID());
+            intent.putExtras(b);
             startActivity(intent);
         });
     }

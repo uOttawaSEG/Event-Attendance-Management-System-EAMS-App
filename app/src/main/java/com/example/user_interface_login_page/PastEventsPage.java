@@ -78,7 +78,6 @@ public class PastEventsPage extends AppCompatActivity {
         pastEventLocationView = findViewById(R.id.eventLocationText);
         pastOrganizerNameView = findViewById(R.id.organizerNameText);
         pastBackButton = findViewById(R.id.backToMainButton);
-        pastAttendeesViewButton = findViewById(R.id.viewAttendeesButton);
         pastEventTimeView = findViewById(R.id.eventTimeText);
         pastEventsListView = findViewById(R.id.eventsListView);
         deletePastEvent = findViewById(R.id.buttonDeletePast);
