@@ -10,6 +10,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class UpcomingEvents extends AppCompatActivity {
 
+    Organizer organizer;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,5 +23,10 @@ public class UpcomingEvents extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        String userID = b.getString("userID");
+        organizer = (Organizer) MainActivity.getUserFromID(userID);
     }
 }

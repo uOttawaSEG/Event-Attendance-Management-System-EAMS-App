@@ -14,6 +14,7 @@ public class OrganizerWelcomePage extends AppCompatActivity {
     private Button buttonCreateEvent;
     private Button buttonUpcomingEvents;
     private Button buttonPastEvents;
+    private Organizer organizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,11 @@ public class OrganizerWelcomePage extends AppCompatActivity {
             return insets;
         });
 
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        String userID = b.getString("userID");
+        organizer = (Organizer) MainActivity.getUserFromID(userID);
+
         initViews();
         setOnclickListeners();
     }
@@ -33,6 +39,9 @@ public class OrganizerWelcomePage extends AppCompatActivity {
     private void setOnclickListeners() {
         this.buttonCreateEvent.setOnClickListener( v -> {
             Intent intent = new Intent(OrganizerWelcomePage.this, EventRegistrationPage.class);
+            Bundle b = new Bundle();
+            b.putString("userID", organizer.getUserID());
+            intent.putExtras(b);
             startActivity(intent);
         });
 

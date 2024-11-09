@@ -21,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.widget.Toast;
 
 public class EventRegistrationPage extends AppCompatActivity {
 
@@ -32,7 +33,6 @@ public class EventRegistrationPage extends AppCompatActivity {
     private EditText startTimeET;
     private EditText endTimeET;
     private EditText eventAddressET;
-    private CheckBox checkBoxAutomatic;
     private CheckBox checkBoxManual;
 
 
@@ -40,7 +40,7 @@ public class EventRegistrationPage extends AppCompatActivity {
     private Date date;
     private Time startTime;
     private Time endTime;
-    private Boolean autoRegistration;
+    private Organizer organizer;
 
 
     @Override
@@ -53,6 +53,11 @@ public class EventRegistrationPage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        String userID = b.getString("userID");
+        organizer = (Organizer) MainActivity.getUserFromID(userID);
 
         initViews();
         SetOnClickListeners();
@@ -74,6 +79,21 @@ public class EventRegistrationPage extends AppCompatActivity {
            Time endTime = this.endTime;
            String address = this.eventAddressET.getText().toString();
            Boolean registrationType = this.checkBoxManual.isChecked();
+
+           try {
+               Event event = new Event(eventTitle,description,date,startTime,endTime,address,registrationType,organizer.getUserID());
+               MainActivity.addEvent(event);
+
+               Intent intent = new Intent(EventRegistrationPage.this, OrganizerWelcomePage.class);
+               Bundle b = new Bundle();
+               b.putString("userID", organizer.getUserID());
+               intent.putExtras(b);
+               startActivity(intent);
+
+           }
+           catch (IllegalArgumentException e) {
+               Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+           }
        });
 
        this.dateET.setOnClickListener( v -> {

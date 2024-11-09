@@ -16,7 +16,7 @@ public class Organizer extends User{
 
         setUserType("Organizer");
         this.organizationName = organizationName;
-        this.eventIDs = eventIDs;
+        this.eventIDs = new ArrayList<String>();
     }
 
     public String getOrganizationName() {

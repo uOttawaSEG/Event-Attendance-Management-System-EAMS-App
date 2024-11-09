@@ -17,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     // List to hold rejected users
     protected static List<User> rejectedUserList;
+
+    // List to hold events
+    protected static List<Event> eventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
         userList = new ArrayList<>();
         pendingUserList = new ArrayList<>();
         rejectedUserList = new ArrayList<>();
+        eventList = new ArrayList<>();
 
-        // Read users from Firebase
+        // Read users and events from Firebase
         readUsers();
+        readEvents();
 
         Intent intent = new Intent(MainActivity.this, InitialPage.class);
         startActivity(intent);
@@ -76,18 +83,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Method to add event
     protected static void addEvent(Event event) {
         // Generate and set user ID
         String eventID = databaseReferenceUsers.push().getKey();
-        user.setUserID(userID);
+        event.setEventID(eventID);
 
         // Add user to database and userList
-        databaseReferenceUsers.child(userID).setValue(user);
-
-        if (user.getUserType().equals("Organizer")) {
-            ArrayList<String> eventIDs = ((Organizer) user).getEventIDs();
-            databaseReferenceUsers.child(userID).push().setValue(eventIDs);
-        }
+        databaseReferenceEvents.child(eventID).setValue(event);
     }
 
     // Method to read users from Firebase into userList
@@ -155,6 +158,43 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Method to read users from Firebase into userList
+    protected static void readEvents() {
+        databaseReferenceEvents.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                eventList.clear();
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    String eventTitle = userSnapshot.child("eventTitle").getValue(String.class);
+                    String description = userSnapshot.child("description").getValue(String.class);
+                    Date eventDate = userSnapshot.child("eventDate").getValue(Date.class);
+                    Time eventStartTime = userSnapshot.child("eventStartTime").getValue(Time.class);
+                    Time eventEndTime = userSnapshot.child("eventEndTime").getValue(Time.class);
+                    String eventAddress = userSnapshot.child("eventAddress").getValue(String.class);
+                    Boolean autoRegistration = userSnapshot.child("autoRegistration").getValue(Boolean.class);
+                    String organizerID = userSnapshot.child("organizerID").getValue(String.class);
+                    String eventID = userSnapshot.child("eventID").getValue(String.class);
+
+                    Event temp = new Event(eventTitle, description, eventDate, eventStartTime, eventEndTime, eventAddress, autoRegistration,organizerID);
+                    temp.setEventID(eventID);
+
+                    ArrayList<String> attendeeIDs = new ArrayList<>();
+                    for (DataSnapshot eventIDSnapshot : userSnapshot.child("attendeeIDs").getChildren()) {
+                        String attendeeID = eventIDSnapshot.getValue(String.class);
+                        attendeeIDs.add(attendeeID);
+                    }
+
+                    eventList.add(temp);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("MainActivity", "The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
     // Method to check if email exists
     protected static boolean emailExists(String email) {
         for (User user : userList) {
@@ -183,5 +223,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         throw new IllegalArgumentException("Invalid email address");
+    }
+
+    // Method to get event from eventID
+    protected static Event getEventFromID(String eventID) {
+        for (Event event : eventList) {
+            if (event.getEventID().equals(eventID)) {
+                return event;
+            }
+        }
+        throw new IllegalArgumentException("Invalid event ID");
     }
 }

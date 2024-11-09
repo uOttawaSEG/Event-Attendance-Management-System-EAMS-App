@@ -1,6 +1,7 @@
 package com.example.user_interface_login_page;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,14 +13,18 @@ public class Event {
     private Time eventEndTime;
     private String eventAddress;
     private boolean autoRegistration;
-    private List<Attendee> listOfAttendees;
 
-    public Event(String eventTitle, String description, Date eventDate, Time eventStartTime, Time eventEndTime, String eventAddress, boolean autoRegistration, List<Attendee> listOfAttendees) throws Exception {
+    private String organizerID;
+    private List<String> attendeeIDs;
+
+    private String eventID;
+
+    public Event(String eventTitle, String description, Date eventDate, Time eventStartTime, Time eventEndTime, String eventAddress, boolean autoRegistration, String organizerID) throws IllegalArgumentException {
         if (!Validator.validateDate(eventDate)) {
-            throw new Exception("Date has already passed!");
+            throw new IllegalArgumentException("Date has already passed!");
         }
         if (!Validator.compareTimes(eventStartTime, eventEndTime)) {
-            throw new Exception("Event end date is before start date!");
+            throw new IllegalArgumentException("Event end date is before start date!");
         }
 
         this.eventTitle = eventTitle;
@@ -29,7 +34,8 @@ public class Event {
         this.eventEndTime = eventEndTime;
         this.eventAddress = eventAddress;
         this.autoRegistration = autoRegistration;
-        this.listOfAttendees = listOfAttendees;
+        this.organizerID = organizerID;
+        this.attendeeIDs = new ArrayList<String>();
     }
 
     public String getEventTitle() {
@@ -54,10 +60,6 @@ public class Event {
 
     public String getEventAddress() {
         return eventAddress;
-    }
-
-    public List<Attendee> getListOfAttendees() {
-        return listOfAttendees;
     }
 
     public boolean getAutoRegistration() {
@@ -92,11 +94,35 @@ public class Event {
         this.autoRegistration = autoRegistration;
     }
 
-    public void setListOfAttendees(List<Attendee> listOfAttendees) {
-        this.listOfAttendees = listOfAttendees;
+    public boolean isAutoRegistration() {
+        return autoRegistration;
     }
 
-    public void registerAttendee(Attendee attendee) {
-        this.listOfAttendees.add(attendee);
+    public String getOrganizerID() {
+        return organizerID;
+    }
+
+    public void setOrganizerID(String organizerID) {
+        this.organizerID = organizerID;
+    }
+
+    public List<String> getAttendeeIDs() {
+        return attendeeIDs;
+    }
+
+    public void setAttendeeIDs(List<String> attendeeIDs) {
+        this.attendeeIDs = attendeeIDs;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public void registerAttendee(String attendeeID) {
+        this.attendeeIDs.add(attendeeID);
     }
 }
