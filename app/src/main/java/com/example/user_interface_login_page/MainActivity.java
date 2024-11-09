@@ -41,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
     // List to hold events
     protected static List<Event> eventList;
 
+    // List to hold upcoming events
+    protected static List<Event> upcomingEventList;
+
+    //List to hold past events
+    protected static List<Event> pastEventList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         pendingUserList = new ArrayList<>();
         rejectedUserList = new ArrayList<>();
         eventList = new ArrayList<>();
+        upcomingEventList = new ArrayList<>();
 
         // Read users and events from Firebase
         readUsers();
@@ -108,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 userList.clear();
                 pendingUserList.clear();
                 rejectedUserList.clear();
+                eventList.clear();
+                upcomingEventList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String firstName = userSnapshot.child("firstName").getValue(String.class);
                     String lastName = userSnapshot.child("lastName").getValue(String.class);
@@ -171,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 eventList.clear();
+                upcomingEventList.clear();
+                pastEventList.clear();
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     String eventTitle = userSnapshot.child("eventTitle").getValue(String.class);
                     String description = userSnapshot.child("description").getValue(String.class);
@@ -182,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                     String organizerID = userSnapshot.child("organizerID").getValue(String.class);
                     String eventID = userSnapshot.child("eventID").getValue(String.class);
 
+
                     Event temp = new Event(eventTitle, description, eventDateMillis, eventStartTimeMillis, eventEndTimeMillis, eventAddress, autoRegistration,organizerID);
                     temp.setEventID(eventID);
 
@@ -192,6 +204,13 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     eventList.add(temp);
+
+                    if (eventDateMillis > System.currentTimeMillis()){
+                        upcomingEventList.add(temp);
+                    }
+                    else{
+                        pastEventList.add(temp);
+                    }
                 }
             }
 

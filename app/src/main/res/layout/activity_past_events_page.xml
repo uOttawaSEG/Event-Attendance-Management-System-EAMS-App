@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".UpcomingEvents">
+    tools:context=".PastEventsPage">
 
     <TextView
-        android:id="@+id/upcomingEventsTitle"
+        android:id="@+id/pastEventsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upcoming Events"
+        android:text="Past Events"
         android:textSize="24sp"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,7 +27,7 @@
         android:orientation="vertical"
         android:padding="12dp"
         android:background="#E0E0E0"
-        app:layout_constraintTop_toBottomOf="@id/upcomingEventsTitle"
+        app:layout_constraintTop_toBottomOf="@id/pastEventsTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/linearLayoutEventRight"
         app:layout_constraintWidth_percent="0.5"
@@ -112,7 +111,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="8dp" />
-
 
     <Button
         android:id="@+id/backToMainButton"
