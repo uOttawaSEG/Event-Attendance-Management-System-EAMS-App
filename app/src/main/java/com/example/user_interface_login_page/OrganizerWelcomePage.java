@@ -46,11 +46,13 @@ public class OrganizerWelcomePage extends AppCompatActivity {
         });
 
         this.buttonUpcomingEvents.setOnClickListener( v -> {
-            //Create intent for upcoming event page
+            Intent intent = new Intent(OrganizerWelcomePage.this,UpcomingEventsPage.class);
+            startActivity(intent);
         });
 
         this.buttonPastEvents.setOnClickListener( v -> {
-            //Create intent for past event page
+            Intent intent = new Intent (OrganizerWelcomePage.this,PastEventsPage.class);
+            startActivity(intent);
         });
     }
 
