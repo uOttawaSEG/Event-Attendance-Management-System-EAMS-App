@@ -26,7 +26,6 @@ public class PastEventsPage extends AppCompatActivity {
     private TextView pastEventDescriptionView;
     private ListView pastEventsListView;
     private Button pastBackButton;
-    private Button pastAttendeesViewButton;
     private Event selectedPastEvent;
     private Button deletePastEvent;
     Organizer organizer;
