@@ -37,9 +37,9 @@ public class EventRegistrationPage extends AppCompatActivity {
 
 
     private Calendar calendar = Calendar.getInstance();
-    private Date date;
-    private Date startTime;
-    private Date endTime;
+    private Date date = null;
+    private Date startTime = null;
+    private Date endTime = null;
     private Organizer organizer;
 
 
@@ -77,14 +77,35 @@ public class EventRegistrationPage extends AppCompatActivity {
            //Create intent to go back to organizer registration page, however, first validate all entered fields
            String eventTitle = this.eventTitleET.getText().toString();
            String description = this.descriptionET.getText().toString();
-           Long date = this.date.getTime();
-           Long startTime = this.startTime.getTime();
-           Long endTime = this.endTime.getTime();
+           long dateEvent;
+           long startTimeEvent;
+           long endTimeEvent;
+
+           if (date != null) {
+               dateEvent = this.date.getTime();
+           }
+           else {
+               dateEvent = 0;
+           }
+
+           if (startTime != null) {
+               startTimeEvent = this.startTime.getTime();
+           }
+           else {
+               startTimeEvent = 0;
+           }
+           if (endTime != null) {
+               endTimeEvent = this.endTime.getTime();
+           }
+           else {
+               endTimeEvent = 0;
+           }
+
            String address = this.eventAddressET.getText().toString();
-           Boolean registrationType = this.checkBoxManual.isChecked();
+           boolean registrationType = this.checkBoxManual.isChecked();
 
            try {
-               Event event = new Event(eventTitle,description,date,startTime,endTime,address,registrationType,organizer.getUserID());
+               Event event = new Event(eventTitle,description,dateEvent,startTimeEvent,endTimeEvent,address,registrationType,organizer.getUserID());
                MainActivity.addEvent(event);
 
                Intent intent = new Intent(EventRegistrationPage.this, OrganizerWelcomePage.class);

@@ -19,11 +19,20 @@ public class Event {
     private String eventID;
 
     public Event(String eventTitle, String description, long eventDateMillis, long eventStartTimeMillis, long eventEndTimeMillis, String eventAddress, boolean autoRegistration, String organizerID) throws IllegalArgumentException {
+        if(!Validator.validateEventTitle(eventTitle)) {
+            throw new IllegalArgumentException("Event must have a title, composed of 1 or more characters!");
+        }
+        if (!Validator.validateEventDescription(description)) {
+            throw new IllegalArgumentException("Event must have a description, composed of 1 or more characters!");
+        }
         if (!Validator.validateDate(eventDateMillis)) {
-            throw new IllegalArgumentException("Date has already passed!");
+            throw new IllegalArgumentException("Date has already passed or has been left blank!");
         }
         if (!Validator.compareTimes(eventStartTimeMillis, eventEndTimeMillis)) {
-            throw new IllegalArgumentException("Event end date is before start date!");
+            throw new IllegalArgumentException("Event end date is before start date or one of the fields are blank!");
+        }
+        if (!Validator.validateEventAddress(eventAddress)) {
+            throw new IllegalArgumentException("Address must match this form: <Unit Number> <Apt.|Unit|Suite> <Street>");
         }
 
         this.eventTitle = eventTitle;
