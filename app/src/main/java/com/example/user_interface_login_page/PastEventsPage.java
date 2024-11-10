@@ -15,6 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class PastEventsPage extends AppCompatActivity {
 
     private ArrayAdapter<Event> pastEventsAdapter;
@@ -29,6 +32,7 @@ public class PastEventsPage extends AppCompatActivity {
     private Event selectedPastEvent;
     private Button deletePastEvent;
     Organizer organizer;
+    ArrayList<Event> organizerEventsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,28 +49,39 @@ public class PastEventsPage extends AppCompatActivity {
         String userID = b.getString("userID");
         organizer = (Organizer) MainActivity.getUserFromID(userID);
 
+        organizerEventsList = new ArrayList<Event>();
+        for (int i=0; i<organizer.getEventIDs().size();i++){
+            Event eventToAdd = MainActivity.getEventFromID(organizer.getEventIDs().get(i));
+            if (eventToAdd.getEventStartTimeMillis() <= System.currentTimeMillis()) {
+                organizerEventsList.add(eventToAdd);
+            }
+        }
+
         initViews();
         initializeEventListeners();
         initializePastEventListeners();
-        MainActivity.updateEventsLists();
     }
 
     private void initializePastEventListeners() {
 
-        pastEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MainActivity.pastEventList);
+        pastEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, organizerEventsList);
         pastEventsListView.setAdapter(pastEventsAdapter);
 
         pastEventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedPastEvent = MainActivity.pastEventList.get(position);
+                selectedPastEvent = organizerEventsList.get(position);
 
                 pastEventNameView.setText("Event Title: " + selectedPastEvent.getEventTitle());
-                pastEventDescriptionView.setText("Desc.: " + selectedPastEvent.getDescription());
-                pastEventDateView.setText("Date: " + selectedPastEvent.getEventDateMillis());
-                pastEventTimeView.setText("From: " + selectedPastEvent.getEventStartTimeMillis() + " till: " + selectedPastEvent.getEventEndTimeMillis());
+                pastEventDescriptionView.setText("Desc: " + selectedPastEvent.getDescription());
+                Date eventDate = new Date(selectedPastEvent.getEventDateMillis());
+                pastEventDateView.setText("Date: " + eventDate.toString());
+                Date startEventDate = new Date(selectedPastEvent.getEventStartTimeMillis());
+                Date endEventDate = new Date(selectedPastEvent.getEventEndTimeMillis());
+                pastEventTimeView.setText("From: " + startEventDate.toString() + " till: " + endEventDate.toString());
                 pastEventLocationView.setText("Address: " + selectedPastEvent.getEventAddress());
-                pastOrganizerNameView.setText("Organizer: " + selectedPastEvent.getOrganizerID());
+                User eventOrganizer = MainActivity.getUserFromID(selectedPastEvent.getOrganizerID());
+                pastOrganizerNameView.setText("Organizer: " + eventOrganizer.getFirstName() + " " + eventOrganizer.getLastName());
             }
         });
     }

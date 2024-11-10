@@ -34,4 +34,8 @@ public class Organizer extends User{
     public void setEventIDs(ArrayList<String> eventIDs) {
         this.eventIDs = eventIDs;
     }
+
+    public void addEventID(String eventID) {
+        eventIDs.add(eventID);
+    }
 }

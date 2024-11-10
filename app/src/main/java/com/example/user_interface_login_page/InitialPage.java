@@ -72,6 +72,10 @@ public class InitialPage extends AppCompatActivity {
                         }
                         else if (user.getUserType().equals("Organizer")) {
                             intent = new Intent(InitialPage.this, OrganizerWelcomePage.class);
+                            Bundle b = new Bundle();
+                            b.putString("userID", user.getUserID());
+                            intent.putExtras(b);
+                            startActivity(intent);
                         }
                         else {
                             intent = new Intent(InitialPage.this, IntoAppPage.class);

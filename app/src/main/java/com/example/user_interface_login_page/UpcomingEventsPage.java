@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class UpcomingEventsPage extends AppCompatActivity {
@@ -32,6 +33,8 @@ public class UpcomingEventsPage extends AppCompatActivity {
     private Event selectedEvent;
     private Button deleteButton;
     Organizer organizer;
+    ArrayList<Event> organizerEventsList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,20 +52,26 @@ public class UpcomingEventsPage extends AppCompatActivity {
         String userID = b.getString("userID");
         organizer = (Organizer) MainActivity.getUserFromID(userID);
 
+        organizerEventsList = new ArrayList<Event>();
+        for (int i=0; i<organizer.getEventIDs().size();i++){
+            Event eventToAdd = MainActivity.getEventFromID(organizer.getEventIDs().get(i));
+            if (eventToAdd.getEventStartTimeMillis() > System.currentTimeMillis()) {
+                organizerEventsList.add(eventToAdd);
+            }
+        }
+
         initViews();
         initializeEventListeners();
         initializeUpcomingEventsAdapter();
-        MainActivity.updateEventsLists();
     }
     private void initializeUpcomingEventsAdapter() {
-
-        upcomingEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, MainActivity.upcomingEventList);
+        upcomingEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, organizerEventsList);
         eventsListView.setAdapter(upcomingEventsAdapter);
 
         eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedEvent = MainActivity.upcomingEventList.get(position);
+                selectedEvent = organizerEventsList.get(position);
                 eventNameView.setText("Event Title: " + selectedEvent.getEventTitle());
                 eventDescriptionView.setText("Desc: " + selectedEvent.getDescription());
                 Date eventDate = new Date(selectedEvent.getEventDateMillis());
@@ -71,7 +80,8 @@ public class UpcomingEventsPage extends AppCompatActivity {
                 Date endEventDate = new Date(selectedEvent.getEventEndTimeMillis());
                 eventTimeView.setText("From: " + startEventDate.toString() + " till: " + endEventDate.toString());
                 eventLocationView.setText("Address: " + selectedEvent.getEventAddress());
-                organizerNameView.setText("Organizer: " + MainActivity.getUserFromID(selectedEvent.getOrganizerID()).getFirstName());
+                User eventOrganizer = MainActivity.getUserFromID(selectedEvent.getOrganizerID());
+                organizerNameView.setText("Organizer: " + eventOrganizer.getFirstName() + " " + eventOrganizer.getLastName());
             }
         });
     }

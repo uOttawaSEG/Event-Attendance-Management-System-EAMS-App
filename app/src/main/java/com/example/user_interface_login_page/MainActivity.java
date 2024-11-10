@@ -41,12 +41,6 @@ public class MainActivity extends AppCompatActivity {
     // List to hold events
     protected static List<Event> eventList;
 
-    // List to hold upcoming events
-    protected static List<Event> upcomingEventList;
-
-    //List to hold past events
-    protected static List<Event> pastEventList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         pendingUserList = new ArrayList<>();
         rejectedUserList = new ArrayList<>();
         eventList = new ArrayList<>();
-        upcomingEventList = new ArrayList<>();
-        pastEventList = new ArrayList<>();
 
         // Read users and events from Firebase
         readUsers();
@@ -140,10 +132,9 @@ public class MainActivity extends AppCompatActivity {
                         temp.setUserID(userID);
                         temp.setRegistrationStatus(registrationStatus);
 
-                        ArrayList<String> eventIDs = new ArrayList<>();
                         for (DataSnapshot eventIDSnapshot : userSnapshot.child("eventIDs").getChildren()) {
                             String eventID = eventIDSnapshot.getValue(String.class);
-                            eventIDs.add(eventID);
+                            temp.addEventID(eventID);
                         }
 
                         userList.add(temp);
@@ -194,10 +185,14 @@ public class MainActivity extends AppCompatActivity {
                     Event temp = new Event(eventTitle, description, eventDateMillis, eventStartTimeMillis, eventEndTimeMillis, eventAddress, autoRegistration,organizerID);
                     temp.setEventID(eventID);
 
-                    ArrayList<String> attendeeIDs = new ArrayList<>();
-                    for (DataSnapshot eventIDSnapshot : userSnapshot.child("attendeeIDs").getChildren()) {
+                    for (DataSnapshot eventIDSnapshot : userSnapshot.child("acceptedAttendeeIDs").getChildren()) {
                         String attendeeID = eventIDSnapshot.getValue(String.class);
-                        attendeeIDs.add(attendeeID);
+                        temp.addAcceptedAttendeeID(attendeeID);
+                    }
+
+                    for (DataSnapshot eventIDSnapshot : userSnapshot.child("pendingAttendeeIDs").getChildren()) {
+                        String attendeeID = eventIDSnapshot.getValue(String.class);
+                        temp.addPendingAttendeeID(attendeeID);
                     }
 
                     eventList.add(temp);
@@ -211,6 +206,22 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("MainActivity", "The read failed: " + databaseError.getCode());
             }
         });
+    }
+
+    protected static void deleteEvent(String eventID){
+        List<String> allAttendees =  getEventFromID(eventID).getAcceptedAttendeeIDs();
+        allAttendees.addAll(getEventFromID(eventID).getPendingAttendeeIDs());
+
+        // remove event from attendees
+        for (int i=0;i<allAttendees.size();i++) {
+            databaseReferenceUsers.child(allAttendees.get(i)).child("eventIDs").child(eventID).removeValue();
+        }
+
+        // remove event from organizer
+        databaseReferenceUsers.child(getEventFromID(eventID).getOrganizerID()).child("eventIDs").child(eventID).removeValue();
+
+        // remove event from database
+        databaseReferenceEvents.child(eventID).removeValue();
     }
 
     // Method to check if email exists
@@ -252,16 +263,4 @@ public class MainActivity extends AppCompatActivity {
         }
         throw new IllegalArgumentException("Invalid event ID");
     }
-
-    protected static void updateEventsLists(){
-        upcomingEventList.clear();
-        pastEventList.clear();
-        for (int i =0 ; i < eventList.size(); i++)
-            if (eventList.get(i).getEventStartTimeMillis() > System.currentTimeMillis()){
-                upcomingEventList.add(eventList.get(i));
-            }
-            else{
-                pastEventList.add(eventList.get(i));
-            }
-        }
 }

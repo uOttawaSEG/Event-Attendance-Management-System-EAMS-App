@@ -1,5 +1,7 @@
 package com.example.user_interface_login_page;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,6 +121,14 @@ public class Event {
         this.pendingAttendeeIDs = pendingAttendeeIDs;
     }
 
+    public List<String> getAcceptedAttendeeIDs() {
+        return acceptedAttendeeIDs;
+    }
+
+    public void setAcceptedAttendeeIDs(List<String> acceptedAttendeeIDs) {
+        this.acceptedAttendeeIDs = acceptedAttendeeIDs;
+    }
+
     public String getEventID() {
         return eventID;
     }
@@ -127,15 +137,24 @@ public class Event {
         this.eventID = eventID;
     }
 
-    public void registerAttendee(String attendeeID) {
-        this.pendingAttendeeIDs.add(attendeeID);
+    public void acceptAttendee(String attendeeID){
+        pendingAttendeeIDs.remove(attendeeID);
+        acceptedAttendeeIDs.add(attendeeID);
     }
 
-    public List<String> getAcceptedAttendeeIDs() {
-        return acceptedAttendeeIDs;
+    public void rejectAttendee(String attendeeID){
+        pendingAttendeeIDs.remove(attendeeID);
     }
 
-    public void setAcceptedAttendeeIDs(List<String> acceptedAttendeeIDs) {
-        this.acceptedAttendeeIDs = acceptedAttendeeIDs;
+    public void addPendingAttendeeID(String ID) {
+        pendingAttendeeIDs.add(ID);
+    }
+    public void addAcceptedAttendeeID(String ID) {
+        acceptedAttendeeIDs.add(ID);
+    }
+
+    @NonNull
+    public String toString() {
+        return this.getEventTitle();
     }
 }

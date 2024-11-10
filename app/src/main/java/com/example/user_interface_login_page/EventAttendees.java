@@ -13,8 +13,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.w3c.dom.Text;
-
 public class EventAttendees extends AppCompatActivity {
     private TextView firstNameView;
     private TextView lastNameView;
@@ -26,7 +24,6 @@ public class EventAttendees extends AppCompatActivity {
     private Button rejectButton;
     private Button backButton;
     private Button approveAllButton;
-
     Event event;
     protected Attendee selectedUser;
 
@@ -69,8 +66,13 @@ public class EventAttendees extends AppCompatActivity {
         acceptButton.setOnClickListener(v->{
             if (selectedUser != null) {
                 selectedUser.addEventIDs(event.getEventID());
+                event.acceptAttendee(selectedUser.getUserID());
                 Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " added!", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(EventAttendees.this, EventAttendees.class);
+                Bundle b = new Bundle();
+                b.putString("eventID", event.getEventID());
+                intent.putExtras(b);
                 startActivity(intent);
             }
             else {
@@ -80,11 +82,14 @@ public class EventAttendees extends AppCompatActivity {
         });
 
         rejectButton.setOnClickListener(v->{
-
             if (selectedUser != null) {
-                selectedUser.addEventIDs(event.getEventID());
+                event.rejectAttendee(selectedUser.getUserID());
                 Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + " rejected!", Toast.LENGTH_SHORT).show();
+
                 Intent intent = new Intent(EventAttendees.this, EventAttendees.class);
+                Bundle b = new Bundle();
+                b.putString("eventID", event.getEventID());
+                intent.putExtras(b);
                 startActivity(intent);
             }
             else {
