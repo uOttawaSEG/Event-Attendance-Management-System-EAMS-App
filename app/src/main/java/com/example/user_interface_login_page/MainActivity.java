@@ -214,11 +214,11 @@ public class MainActivity extends AppCompatActivity {
 
         // remove event from attendees
         for (int i=0;i<allAttendees.size();i++) {
-            databaseReferenceUsers.child(allAttendees.get(i)).child("eventIDs").child(eventID).removeValue();
+            databaseReferenceUsers.child(allAttendees.get(i)).child("eventIDs").orderByValue().equalTo("Item 2");
         }
 
         // remove event from organizer
-        databaseReferenceUsers.child(getEventFromID(eventID).getOrganizerID()).child("eventIDs").child(eventID).removeValue();
+        databaseReferenceUsers.child(getEventFromID(eventID).getOrganizerID()).child("eventIDs").;
 
         // remove event from database
         databaseReferenceEvents.child(eventID).removeValue();

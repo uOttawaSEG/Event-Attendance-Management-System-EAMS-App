@@ -72,13 +72,24 @@ public class UpcomingEventsPage extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedEvent = organizerEventsList.get(position);
+
                 eventNameView.setText("Event Title: " + selectedEvent.getEventTitle());
                 eventDescriptionView.setText("Desc: " + selectedEvent.getDescription());
-                Date eventDate = new Date(selectedEvent.getEventDateMillis());
-                eventDateView.setText("Date: " + eventDate.toString());
-                Date startEventDate = new Date(selectedEvent.getEventStartTimeMillis());
-                Date endEventDate = new Date(selectedEvent.getEventEndTimeMillis());
-                eventTimeView.setText("From: " + startEventDate.toString() + " till: " + endEventDate.toString());
+
+                String eventDate = (new Date(selectedEvent.getEventDateMillis())).toString();
+                String[] tempArray = eventDate.split(" ");
+                eventDate = tempArray[0]+" "+tempArray[1]+" "+tempArray[2]+" "+tempArray[5];
+                eventDateView.setText("Date: " + eventDate);
+
+
+                String startEventDate = (new Date(selectedEvent.getEventStartTimeMillis())).toString();
+                String endEventDate = (new Date(selectedEvent.getEventEndTimeMillis()).toString());
+                tempArray = startEventDate.split(" ");
+                startEventDate = tempArray[3]+" "+tempArray[4];
+                tempArray = endEventDate.split(" ");
+                endEventDate = tempArray[3]+" "+tempArray[4];
+                eventTimeView.setText("From: " + startEventDate + " to: " + endEventDate);
+
                 eventLocationView.setText("Address: " + selectedEvent.getEventAddress());
                 User eventOrganizer = MainActivity.getUserFromID(selectedEvent.getOrganizerID());
                 organizerNameView.setText("Organizer: " + eventOrganizer.getFirstName() + " " + eventOrganizer.getLastName());
@@ -98,7 +109,6 @@ public class UpcomingEventsPage extends AppCompatActivity {
         attendeesViewButton.setOnClickListener(v -> {
             if(selectedEvent!= null) {
 
-
                 if (selectedEvent.isAutoRegistration()) {
                     Toast.makeText(this, "This event has auto registration!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -111,10 +121,21 @@ public class UpcomingEventsPage extends AppCompatActivity {
             }else{
                 Toast.makeText(this,"Please select an event", Toast.LENGTH_SHORT).show();
             }
-            });
+        });
 
-
-
+        deleteButton.setOnClickListener(v -> {
+            if (selectedEvent != null){
+                MainActivity.deleteEvent(selectedEvent.getEventID());
+                Intent intent = new Intent(UpcomingEventsPage.this, UpcomingEventsPage.class);
+                Bundle b = new Bundle();
+                b.putString("userID", organizer.getUserID());
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(this,"Please select an event to delete", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void initViews() {

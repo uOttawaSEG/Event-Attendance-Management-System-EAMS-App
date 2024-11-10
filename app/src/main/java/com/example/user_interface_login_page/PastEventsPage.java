@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,14 +75,37 @@ public class PastEventsPage extends AppCompatActivity {
 
                 pastEventNameView.setText("Event Title: " + selectedPastEvent.getEventTitle());
                 pastEventDescriptionView.setText("Desc: " + selectedPastEvent.getDescription());
-                Date eventDate = new Date(selectedPastEvent.getEventDateMillis());
-                pastEventDateView.setText("Date: " + eventDate.toString());
-                Date startEventDate = new Date(selectedPastEvent.getEventStartTimeMillis());
-                Date endEventDate = new Date(selectedPastEvent.getEventEndTimeMillis());
-                pastEventTimeView.setText("From: " + startEventDate.toString() + " till: " + endEventDate.toString());
+
+                String eventDate = (new Date(selectedPastEvent.getEventDateMillis())).toString();
+                String[] tempArray = eventDate.split(" ");
+                eventDate = tempArray[0]+" "+tempArray[1]+" "+tempArray[2]+" "+tempArray[5];
+                pastEventDateView.setText("Date: " + eventDate);
+
+                String startEventDate = (new Date(selectedPastEvent.getEventStartTimeMillis())).toString();
+                String endEventDate = (new Date(selectedPastEvent.getEventEndTimeMillis()).toString());
+                tempArray = startEventDate.split(" ");
+                startEventDate = tempArray[3]+" "+tempArray[4];
+                tempArray = endEventDate.split(" ");
+                endEventDate = tempArray[3]+" "+tempArray[4];
+                pastEventTimeView.setText("From: " + startEventDate + " to: " + endEventDate);
+
                 pastEventLocationView.setText("Address: " + selectedPastEvent.getEventAddress());
                 User eventOrganizer = MainActivity.getUserFromID(selectedPastEvent.getOrganizerID());
                 pastOrganizerNameView.setText("Organizer: " + eventOrganizer.getFirstName() + " " + eventOrganizer.getLastName());
+            }
+        });
+
+        deletePastEvent.setOnClickListener(v -> {
+            if (selectedPastEvent != null){
+                MainActivity.deleteEvent(selectedPastEvent.getEventID());
+                Intent intent = new Intent(PastEventsPage.this, PastEventsPage.class);
+                Bundle b = new Bundle();
+                b.putString("userID", organizer.getUserID());
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(this,"Please select an event to delete", Toast.LENGTH_SHORT).show();
             }
         });
     }
