@@ -21,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.widget.Toast;
 
 public class EventRegistrationPage extends AppCompatActivity {
 
@@ -32,15 +33,14 @@ public class EventRegistrationPage extends AppCompatActivity {
     private EditText startTimeET;
     private EditText endTimeET;
     private EditText eventAddressET;
-    private CheckBox checkBoxAutomatic;
     private CheckBox checkBoxManual;
 
 
     private Calendar calendar = Calendar.getInstance();
     private Date date;
-    private Time startTime;
-    private Time endTime;
-    private Boolean autoRegistration;
+    private Date startTime;
+    private Date endTime;
+    private Organizer organizer;
 
 
     @Override
@@ -54,6 +54,11 @@ public class EventRegistrationPage extends AppCompatActivity {
             return insets;
         });
 
+        Bundle b = getIntent().getExtras();
+        assert b != null;
+        String userID = b.getString("userID");
+        organizer = (Organizer) MainActivity.getUserFromID(userID);
+
         initViews();
         SetOnClickListeners();
     }
@@ -62,6 +67,9 @@ public class EventRegistrationPage extends AppCompatActivity {
        this.backButtonEvent.setOnClickListener( v -> {
            //Create intent to go back to Organizer login page
            Intent intent = new Intent(EventRegistrationPage.this, OrganizerWelcomePage.class);
+           Bundle b = new Bundle();
+           b.putString("userID", organizer.getUserID());
+           intent.putExtras(b);
            startActivity(intent);
        });
 
@@ -69,11 +77,26 @@ public class EventRegistrationPage extends AppCompatActivity {
            //Create intent to go back to organizer registration page, however, first validate all entered fields
            String eventTitle = this.eventTitleET.getText().toString();
            String description = this.descriptionET.getText().toString();
-           Date date = this.date;
-           Time startTime = this.startTime;
-           Time endTime = this.endTime;
+           Long date = this.date.getTime();
+           Long startTime = this.startTime.getTime();
+           Long endTime = this.endTime.getTime();
            String address = this.eventAddressET.getText().toString();
            Boolean registrationType = this.checkBoxManual.isChecked();
+
+           try {
+               Event event = new Event(eventTitle,description,date,startTime,endTime,address,registrationType,organizer.getUserID());
+               MainActivity.addEvent(event);
+
+               Intent intent = new Intent(EventRegistrationPage.this, OrganizerWelcomePage.class);
+               Bundle b = new Bundle();
+               b.putString("userID", organizer.getUserID());
+               intent.putExtras(b);
+               startActivity(intent);
+
+           }
+           catch (IllegalArgumentException e) {
+               Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+           }
        });
 
        this.dateET.setOnClickListener( v -> {
@@ -120,19 +143,18 @@ public class EventRegistrationPage extends AppCompatActivity {
     private void selectTime(boolean typeOfTime) {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        minute = (minute / 30) * 30;  // Round to nearest 30 minutes
+        minute = (minute / 30) * 30;
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, (view, hourOfDay, minute1) -> {
-            int roundedMinute = (minute1 < 30) ? 0 : 30;  // Set to nearest 30-minute interval
+            int roundedMinute = (minute1 < 30) ? 0 : 30;
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
             calendar.set(Calendar.MINUTE, roundedMinute);
             if (typeOfTime) {
                 startTimeET.setText(hourOfDay + ":" + String.format("%02d", roundedMinute));
-                this.startTime = (Time) calendar.getTime();
-            }
-            else {
+                this.startTime = calendar.getTime();  // No casting to Time
+            } else {
                 endTimeET.setText(hourOfDay + ":" + String.format("%02d", roundedMinute));
-                this.endTime = (Time) calendar.getTime();
+                this.endTime = calendar.getTime();  // No casting to Time
             }
         }, hour, minute, true);
         timePickerDialog.show();
