@@ -85,12 +85,12 @@ public class PastEventAttendees extends AppCompatActivity {
     }
 
     private void initViews() {
-        firstNameView = findViewById(R.id.nameText);
-        lastNameView = findViewById(R.id.lastNameText);
-        usernameView = findViewById(R.id.usernameText);
-        phoneNumberView = findViewById(R.id.phoneNumberText);
-        adrressTextView = findViewById(R.id.addressText);
-        attendeeEventListView = findViewById(R.id.attendeeEventListView);
-        backButton = findViewById(R.id.goBackButton);
+        firstNameView = findViewById(R.id.pastNameText);
+        lastNameView = findViewById(R.id.pastLastNameText);
+        usernameView = findViewById(R.id.pastUsernameText);
+        phoneNumberView = findViewById(R.id.pastPhoneNumberText);
+        adrressTextView = findViewById(R.id.pastAddressText);
+        attendeeEventListView = findViewById(R.id.pastAttendeeEventListView);
+        backButton = findViewById(R.id.pastGoBackButton);
     }
 }
