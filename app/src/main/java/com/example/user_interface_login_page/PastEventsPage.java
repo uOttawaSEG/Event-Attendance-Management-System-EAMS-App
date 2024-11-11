@@ -85,9 +85,9 @@ public class PastEventsPage extends AppCompatActivity {
                 String startEventDate = (new Date(selectedPastEvent.getEventStartTimeMillis())).toString();
                 String endEventDate = (new Date(selectedPastEvent.getEventEndTimeMillis()).toString());
                 tempArray = startEventDate.split(" ");
-                startEventDate = tempArray[3]+" "+tempArray[4];
+                startEventDate = tempArray[3].substring(0,5)+" "+tempArray[4];
                 tempArray = endEventDate.split(" ");
-                endEventDate = tempArray[3]+" "+tempArray[4];
+                endEventDate = tempArray[3].substring(0,5)+" "+tempArray[4];
                 pastEventTimeView.setText("From: " + startEventDate + " to: " + endEventDate);
 
                 pastEventLocationView.setText("Address: " + selectedPastEvent.getEventAddress());
@@ -137,7 +137,7 @@ public class PastEventsPage extends AppCompatActivity {
 
         pastAttendees.setOnClickListener(v -> {
             if (selectedPastEvent != null) {
-                Intent intent = new Intent(PastEventsPage.this, PastEventsPage.class);
+                Intent intent = new Intent(PastEventsPage.this, PastEventAttendees.class);
                 Bundle b = new Bundle();
                 b.putString("eventID", selectedPastEvent.getEventID());
                 intent.putExtras(b);

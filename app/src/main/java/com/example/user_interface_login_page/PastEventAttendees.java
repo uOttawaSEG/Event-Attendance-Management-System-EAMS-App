@@ -47,14 +47,14 @@ public class PastEventAttendees extends AppCompatActivity {
         String eventID = b.getString("eventID");
         event = MainActivity.getEventFromID(eventID);
 
-        for(int i = 0; i < event.getPendingAttendeeIDs().size(); i++) {
+        for(int i = 0; i < event.getAcceptedAttendeeIDs().size(); i++) {
             acceptedAttendees.add((Attendee) MainActivity.getUserFromID(event.getAcceptedAttendeeIDs().get(i)));
         }
 
         initViews();
         initializeViewEventListeners();
 
-        // Set up the ListView and ArrayAdapter to display the pending registration requests
+        // Set up the ListView and ArrayAdapter to display the accepted registration requests
         attendeeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, acceptedAttendees);
         attendeeEventListView.setAdapter(attendeeAdapter);  // Set the adapter to the ListView
 
@@ -76,14 +76,6 @@ public class PastEventAttendees extends AppCompatActivity {
 
     private void initializeViewEventListeners() {
         backButton.setOnClickListener(v->{
-            Intent intent = new Intent(PastEventAttendees.this, UpcomingEventsPage.class);
-            Bundle b = new Bundle();
-            b.putString("userID", event.getOrganizerID());
-            intent.putExtras(b);
-            startActivity(intent);
-        });
-
-        backButton.setOnClickListener(v -> {
             Intent intent = new Intent(PastEventAttendees.this, PastEventsPage.class);
             Bundle b = new Bundle();
             b.putString("userID", event.getOrganizerID());

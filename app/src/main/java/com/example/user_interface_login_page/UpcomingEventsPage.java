@@ -85,9 +85,9 @@ public class UpcomingEventsPage extends AppCompatActivity {
                 String startEventDate = (new Date(selectedEvent.getEventStartTimeMillis())).toString();
                 String endEventDate = (new Date(selectedEvent.getEventEndTimeMillis()).toString());
                 tempArray = startEventDate.split(" ");
-                startEventDate = tempArray[3]+" "+tempArray[4];
+                startEventDate = tempArray[3].substring(0,5)+" "+tempArray[4];
                 tempArray = endEventDate.split(" ");
-                endEventDate = tempArray[3]+" "+tempArray[4];
+                endEventDate = tempArray[3].substring(0,5)+" "+tempArray[4];
                 eventTimeView.setText("From: " + startEventDate + " to: " + endEventDate);
 
                 eventLocationView.setText("Address: " + selectedEvent.getEventAddress());

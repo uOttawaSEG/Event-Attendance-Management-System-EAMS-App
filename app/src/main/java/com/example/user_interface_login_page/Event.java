@@ -28,7 +28,7 @@ public class Event {
             throw new IllegalArgumentException("Event must have a description, composed of 1 or more characters!");
         }
         if (!Validator.validateDate(eventDateMillis)) {
-            throw new IllegalArgumentException("Date has already passed or has been left blank!");
+            throw new IllegalArgumentException("Date has already passed (cannot be today) or has been left blank!");
         }
         if (!Validator.compareTimes(eventStartTimeMillis, eventEndTimeMillis)) {
             throw new IllegalArgumentException("Event end date is before start date or one of the fields are blank!");
