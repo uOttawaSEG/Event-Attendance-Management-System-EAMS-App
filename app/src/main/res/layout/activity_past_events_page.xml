@@ -117,10 +117,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
         android:backgroundTint="#1C42A6"
         android:text="Back"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/eventsListView" />
 
@@ -128,11 +128,23 @@
         android:id="@+id/buttonDeletePast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="#EF0616"
         android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventsListView" />
+
+    <Button
+        android:id="@+id/buttonPastAttendees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Past Attendees"
+        android:backgroundTint="#E0014D2A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDeletePast"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toEndOf="@+id/backToMainButton"
         app:layout_constraintTop_toBottomOf="@+id/eventsListView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

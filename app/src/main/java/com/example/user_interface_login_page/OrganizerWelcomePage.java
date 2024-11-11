@@ -14,6 +14,7 @@ public class OrganizerWelcomePage extends AppCompatActivity {
     private Button buttonCreateEvent;
     private Button buttonUpcomingEvents;
     private Button buttonPastEvents;
+    private Button buttonSignOutOrganizer;
     private Organizer organizer;
 
     @Override
@@ -60,11 +61,17 @@ public class OrganizerWelcomePage extends AppCompatActivity {
             intent.putExtras(b);
             startActivity(intent);
         });
+
+        this.buttonSignOutOrganizer.setOnClickListener( v -> {
+            Intent intent = new Intent (OrganizerWelcomePage.this,InitialPage.class);
+            startActivity(intent);
+        });
     }
 
     private void initViews() {
         this.buttonCreateEvent = findViewById(R.id.buttonCreateEvents);
         this.buttonUpcomingEvents = findViewById(R.id.buttonUpcomingEvents);
         this.buttonPastEvents = findViewById(R.id.buttonPastEvents);
+        this.buttonSignOutOrganizer = findViewById(R.id.buttonSignOutOrganizer);
     }
 }

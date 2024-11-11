@@ -32,6 +32,7 @@ public class PastEventsPage extends AppCompatActivity {
     private Button pastBackButton;
     private Event selectedPastEvent;
     private Button deletePastEvent;
+    private Button pastAttendees;
     Organizer organizer;
     ArrayList<Event> organizerEventsList;
 
@@ -98,6 +99,7 @@ public class PastEventsPage extends AppCompatActivity {
         deletePastEvent.setOnClickListener(v -> {
             if (selectedPastEvent != null){
                 MainActivity.deleteEvent(selectedPastEvent.getEventID());
+                Toast.makeText(this,"Event deleted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(PastEventsPage.this, PastEventsPage.class);
                 Bundle b = new Bundle();
                 b.putString("userID", organizer.getUserID());
@@ -105,7 +107,7 @@ public class PastEventsPage extends AppCompatActivity {
                 startActivity(intent);
             }
             else{
-                Toast.makeText(this,"Please select an event to delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Please select an event to delete!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -120,6 +122,7 @@ public class PastEventsPage extends AppCompatActivity {
         pastEventTimeView = findViewById(R.id.eventTimeText);
         pastEventsListView = findViewById(R.id.eventsListView);
         deletePastEvent = findViewById(R.id.buttonDeletePast);
+        pastAttendees = findViewById(R.id.buttonPastAttendees);
 
     }
 
@@ -130,6 +133,19 @@ public class PastEventsPage extends AppCompatActivity {
             b.putString("userID", organizer.getUserID());
             intent.putExtras(b);
             startActivity(intent);
+        });
+
+        pastAttendees.setOnClickListener(v -> {
+            if (selectedPastEvent != null) {
+                Intent intent = new Intent(PastEventsPage.this, PastEventsPage.class);
+                Bundle b = new Bundle();
+                b.putString("eventID", selectedPastEvent.getEventID());
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(this,"Please select an event!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

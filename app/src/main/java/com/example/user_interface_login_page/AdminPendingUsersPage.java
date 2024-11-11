@@ -45,8 +45,6 @@ public class AdminPendingUsersPage extends AppCompatActivity {
             return insets;
         });
 
-        //MainActivity.readUsers();
-
         initViews();
         initializeEventListeners();
 

@@ -126,6 +126,7 @@ public class UpcomingEventsPage extends AppCompatActivity {
         deleteButton.setOnClickListener(v -> {
             if (selectedEvent != null){
                 MainActivity.deleteEvent(selectedEvent.getEventID());
+                Toast.makeText(this,"Event deleted", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UpcomingEventsPage.this, UpcomingEventsPage.class);
                 Bundle b = new Bundle();
                 b.putString("userID", organizer.getUserID());

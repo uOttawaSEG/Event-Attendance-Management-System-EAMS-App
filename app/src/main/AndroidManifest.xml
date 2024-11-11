@@ -16,6 +16,9 @@
         android:theme="@style/Theme.User_Interface_Login_Page"
         tools:targetApi="31">
         <activity
+            android:name=".PastEventAttendees"
+            android:exported="false" />
+        <activity
             android:name=".EventAttendees"
             android:exported="false" />
         <activity

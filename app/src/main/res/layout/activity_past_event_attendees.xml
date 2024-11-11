@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PastEventAttendees">
+
+    <TextView
+        android:id="@+id/pastRegistrationTitle"
+        android:textSize="22sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_top_margin"
+        android:text=" Accepted attendees"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLeft"
+        android:layout_width="0sp"
+        android:layout_height="150sp"
+        android:background="#C5B0B0"
+        android:orientation="vertical"
+
+        app:layout_constraintEnd_toStartOf="@+id/linearLayoutRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutRight"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintWidth_percent="0.5">
+
+        <TextView
+            android:id="@+id/nameText"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/lastNameText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Last Name" />
+
+        <TextView
+            android:id="@+id/usernameText"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:text="Username" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRight"
+        android:layout_width="0sp"
+        android:layout_height="150sp"
+        android:layout_marginTop="16sp"
+        android:background="#42D5D1"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearLayoutLeft"
+        app:layout_constraintTop_toBottomOf="@id/pastRegistrationTitle"
+        app:layout_constraintWidth_percent="0.5">
+
+        <TextView
+            android:id="@+id/pastPhoneNumberText"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:gravity="center"
+            android:text="Phone Number" />
+
+        <TextView
+            android:id="@+id/pastAddressText"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:gravity="center"
+            android:text="Address" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pastUserTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attendees"
+        android:layout_marginTop="8sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutRight" />
+
+    <ListView
+        android:id="@+id/pastAttendeeEventListView"
+        android:layout_width="409sp"
+        android:layout_height="400sp"
+        android:layout_marginTop="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pastUserTypeText" />
+
+    <Button
+        android:id="@+id/pastGoBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#1C42A6"
+        android:text="Go Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pastAttendeeEventListView" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.user_interface_login_page;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -214,12 +215,43 @@ public class MainActivity extends AppCompatActivity {
 
         // remove event from attendees
         for (int i=0;i<allAttendees.size();i++) {
-            databaseReferenceUsers.child(allAttendees.get(i)).child("eventIDs").orderByValue().equalTo("Item 2");
+            DatabaseReference ref = databaseReferenceUsers.child(allAttendees.get(i)).child("eventIDs");
+            ref.orderByValue().equalTo(eventID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        // Get the key that has the specific value
+                        String key = snapshot.getKey();
+                        // Delete the key
+                        ref.child(key).removeValue();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e("Firebase", "Error deleting key: " + databaseError.getMessage());
+                }
+            });
         }
 
         // remove event from organizer
-        databaseReferenceUsers.child(getEventFromID(eventID).getOrganizerID()).child("eventIDs").;
+        DatabaseReference ref = databaseReferenceUsers.child(getEventFromID(eventID).getOrganizerID()).child("eventIDs");
+        ref.orderByValue().equalTo(eventID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Get the key that has the specific value
+                    String key = snapshot.getKey();
+                    // Delete the key
+                    ref.child(key).removeValue();
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error deleting key: " + databaseError.getMessage());
+            }
+        });
         // remove event from database
         databaseReferenceEvents.child(eventID).removeValue();
     }
