@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RequestRegistrationToEventAttendee">
+
+    <TextView
+        android:id="@+id/selectedEventRegistrationAttendee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Registration Attendee"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutEventLeft"
+        android:layout_width="194dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="#E0E0E0"
+        android:orientation="vertical"
+        android:padding="12dp"
+        app:layout_constraintEnd_toStartOf="@id/linearLayoutEventRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selectedEventRegistrationAttendee"
+        app:layout_constraintWidth_percent="0.5">
+
+        <TextView
+            android:id="@+id/eventNameTextAttendeeRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Event Name"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/eventDateTextAttendeeRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="91dp"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Date"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/eventTimeTextAttendeeRegistration"
+            android:layout_width="174dp"
+            android:layout_height="98dp"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Time"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutEventRight"
+        android:layout_width="206dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="8dp"
+        android:background="#D3A4FF"
+        android:orientation="vertical"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/linearLayoutEventLeft"
+        app:layout_constraintTop_toTopOf="@id/linearLayoutEventLeft"
+        app:layout_constraintWidth_percent="0.5">
+
+        <TextView
+            android:id="@+id/eventLocationTextAttendeeRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Location"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/organizerNameTextAttendeeRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="81dp"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Organizer"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/eventDescriptionTextAttendeeRegistration"
+            android:layout_width="match_parent"
+            android:layout_height="104dp"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="Description"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/backToMainButtonAttendeeEventRegistration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#1C42A6"
+        android:text="Back"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutEventLeft" />
+
+
+    <Button
+        android:id="@+id/registerToEventAttendee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#F60615"
+        android:text="Register to Event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutEventRight" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

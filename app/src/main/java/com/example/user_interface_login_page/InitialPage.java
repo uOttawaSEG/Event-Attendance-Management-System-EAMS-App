@@ -77,13 +77,13 @@ public class InitialPage extends AppCompatActivity {
                             intent.putExtras(b);
                             startActivity(intent);
                         }
-                        else {
-                            intent = new Intent(InitialPage.this, IntoAppPage.class);
+                        else if (user.getUserType().equals("Attendee")) {
+                            intent = new Intent(InitialPage.this, AttendeeWelcomePage.class);
+                            Bundle b = new Bundle();
+                            b.putString("userID", user.getUserID());
+                            intent.putExtras(b);
+                            startActivity(intent);
                         }
-                        Bundle b = new Bundle();
-                        b.putString("userID", user.getUserID());
-                        intent.putExtras(b);
-                        startActivity(intent);
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Email or password is incorrect", Toast.LENGTH_SHORT).show();

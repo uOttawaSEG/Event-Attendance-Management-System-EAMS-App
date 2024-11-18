@@ -104,6 +104,10 @@ public class EventRegistrationPage extends AppCompatActivity {
            String address = this.eventAddressET.getText().toString();
            boolean registrationType = this.checkBoxManual.isChecked();
 
+           dateEvent = dateEvent - (dateEvent % (86400 * 1000));
+           startTimeEvent = dateEvent + (startTimeEvent % (86400 * 1000));
+           endTimeEvent = dateEvent + (endTimeEvent % (86400 * 1000));
+
            try {
                Event event = new Event(eventTitle,description,dateEvent,startTimeEvent,endTimeEvent,address,registrationType,organizer.getUserID());
                MainActivity.addEvent(event);

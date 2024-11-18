@@ -16,6 +16,15 @@
         android:theme="@style/Theme.User_Interface_Login_Page"
         tools:targetApi="31">
         <activity
+            android:name=".RequestRegistrationToEventAttendee"
+            android:exported="false" />
+        <activity
+            android:name=".RequestedAndAcceptedEvents"
+            android:exported="false" />
+        <activity
+            android:name=".AttendeeWelcomePage"
+            android:exported="false" />
+        <activity
             android:name=".PastEventAttendees"
             android:exported="false" />
         <activity
