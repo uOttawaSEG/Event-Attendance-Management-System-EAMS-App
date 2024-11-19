@@ -40,9 +40,6 @@
             android:name=".PastEventsPage"
             android:exported="false" />
         <activity
-            android:name=".UpcomingEvents"
-            android:exported="false" />
-        <activity
             android:name=".EventRegistrationPage"
             android:exported="false" />
         <activity
