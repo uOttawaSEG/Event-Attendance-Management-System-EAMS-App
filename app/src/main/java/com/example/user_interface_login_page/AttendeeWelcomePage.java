@@ -46,7 +46,11 @@ public class AttendeeWelcomePage extends AppCompatActivity {
 
     private void setOnClickListeners() {
         searchForEvents.setOnClickListener( v -> {
-            //Go to search for events page with bundle
+            Intent intent = new Intent (AttendeeWelcomePage.this,ViewEventsAttendee.class);
+            Bundle b = new Bundle();
+            b.putString("userID", attendee.getUserID());
+            intent.putExtras(b);
+            startActivity(intent);
         });
 
         registrationRequests.setOnClickListener( v -> {

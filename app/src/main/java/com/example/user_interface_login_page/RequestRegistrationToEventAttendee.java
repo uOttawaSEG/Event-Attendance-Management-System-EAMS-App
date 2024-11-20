@@ -54,12 +54,11 @@ public class RequestRegistrationToEventAttendee extends AppCompatActivity {
 
     private void setOnclickListeners() {
         backToWelcomeButton.setOnClickListener( v -> {
-//            Intent intent = new Intent(RequestRegistrationToEventAttendee.this, AttendeeWelcomePage.class)
-//            needs to go to the search page
-//            Bundle b = new Bundle();
-//            b.putString("userID", attendee.getUserID());
-//            intent.putExtras(b);
-//            startActivity(intent);
+            Intent intent = new Intent(RequestRegistrationToEventAttendee.this, ViewEventsAttendee.class);
+            Bundle b = new Bundle();
+            b.putString("userID", attendee.getUserID());
+            intent.putExtras(b);
+            startActivity(intent);
         });
 
         registerToEventButton.setOnClickListener( v -> {
