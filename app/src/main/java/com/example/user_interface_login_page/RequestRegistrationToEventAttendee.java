@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,8 +63,30 @@ public class RequestRegistrationToEventAttendee extends AppCompatActivity {
         });
 
         registerToEventButton.setOnClickListener( v -> {
-            event.addPendingAttendeeID(attendee.getUserID());
-            //Intent back to search page afterwards
+            boolean alreadyTried = false;
+
+            for(int i = 0; i < event.getPendingAttendeeIDs().size(); i++) {
+                if (attendee.getUserID() == event.getPendingAttendeeIDs().get(i)) {
+                    alreadyTried = true;
+                }
+            }
+            for(int i = 0; i < event.getAcceptedAttendeeIDs().size(); i++) {
+                if (attendee.getUserID() == event.getAcceptedAttendeeIDs().get(i)) {
+                    alreadyTried = true;
+                }
+            }
+
+            if (!alreadyTried) {
+                event.addPendingAttendeeID(attendee.getUserID());
+                Intent intent = new Intent(RequestRegistrationToEventAttendee.this, ViewEventsAttendee.class);
+                Bundle b = new Bundle();
+                b.putString("userID", attendee.getUserID());
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "You have already tried registering!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
