@@ -2,6 +2,8 @@ package com.example.user_interface_login_page;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextWatcher;
+import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -116,5 +118,26 @@ public class ViewEventsAttendee extends AppCompatActivity {
         goToEventButton = findViewById(R.id.btn_view_event);
         searchBar= findViewById(R.id.search_bar);
         eventsListView = findViewById(R.id.lv_events);
+
+        searchBar.addTextChangedListener(new TextWatcher() {
+            // imported TextWatcher, it is used to track changes to text entered in an EditText field.
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No implementation, just here to satisfy the interface
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Satisfying the interface  TextWatcher
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                upcomingEventsAdapter.getFilter().filter(s.toString()); // turns every keystroke into a search query
+            }
+        });
+
+
     }
 }
