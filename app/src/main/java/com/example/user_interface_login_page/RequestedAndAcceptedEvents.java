@@ -28,6 +28,7 @@ public class RequestedAndAcceptedEvents extends AppCompatActivity {
     private TextView eventLocationViewAttendee;
     private TextView organizerNameViewAttendee;
     private TextView eventDescriptionViewAttendee;
+    private TextView registrationStatusAttendee;
     private ListView eventsListViewAttendee;
     private Button backButtonAttendee;
     private Event selectedEvent;
@@ -93,6 +94,25 @@ public class RequestedAndAcceptedEvents extends AppCompatActivity {
                 eventLocationViewAttendee.setText("Address: " + selectedEvent.getEventAddress());
                 User eventOrganizer = MainActivity.getUserFromID(selectedEvent.getOrganizerID());
                 organizerNameViewAttendee.setText("Organizer: " + eventOrganizer.getFirstName() + " " + eventOrganizer.getLastName());
+
+                boolean rejected = true;
+                for (int i=0; i<selectedEvent.getAcceptedAttendeeIDs().size(); i++) {
+                    if (selectedEvent.getAcceptedAttendeeIDs().get(i).equals(attendee.getUserID())) {
+                        registrationStatusAttendee.setText("Accepted");
+                        rejected = false;
+                        break;
+                    }
+                }
+                for (int i=0; i<selectedEvent.getPendingAttendeeIDs().size(); i++) {
+                    if (selectedEvent.getPendingAttendeeIDs().get(i).equals(attendee.getUserID())) {
+                        registrationStatusAttendee.setText("Pending");
+                        rejected = false;
+                        break;
+                    }
+                }
+                if (rejected) {
+                    registrationStatusAttendee.setText("Rejected");
+                }
             }
         });
     }
@@ -111,13 +131,32 @@ public class RequestedAndAcceptedEvents extends AppCompatActivity {
                 Long currentDate = new Date().getTime();
                 Long eventStartTime = selectedEvent.getEventStartTimeMillis();
                 if (eventStartTime - currentDate >= 86400 * 1000) {
-                    MainActivity.deleteEvent(selectedEvent.getEventID());
-                    Toast.makeText(this,"You unregistered from the event!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RequestedAndAcceptedEvents.this, RequestedAndAcceptedEvents.class);
-                    Bundle b = new Bundle();
-                    b.putString("userID", attendee.getUserID());
-                    intent.putExtras(b);
-                    startActivity(intent);
+                    boolean isRejected = true;
+                    for (int i=0; i<selectedEvent.getPendingAttendeeIDs().size(); i++) {
+                        if (attendee.getUserID().equals(selectedEvent.getPendingAttendeeIDs().get(i))) {
+                            isRejected = false;
+                            break;
+                        }
+                    }
+                    for (int i=0; i<selectedEvent.getAcceptedAttendeeIDs().size(); i++) {
+                        if (attendee.getUserID().equals(selectedEvent.getAcceptedAttendeeIDs().get(i))) {
+                            isRejected = false;
+                            break;
+                        }
+                    }
+
+                    if (!isRejected) {
+                        attendee.unregisterToEvent(selectedEvent.getEventID());
+                        Toast.makeText(this, "You unregistered from the event!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RequestedAndAcceptedEvents.this, RequestedAndAcceptedEvents.class);
+                        Bundle b = new Bundle();
+                        b.putString("userID", attendee.getUserID());
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(this, "You are already rejected from this event!", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else {
                     Toast.makeText(this,"It is too late to unregister from the selected event!", Toast.LENGTH_SHORT).show();
@@ -135,6 +174,7 @@ public class RequestedAndAcceptedEvents extends AppCompatActivity {
         eventDateViewAttendee = findViewById(R.id.eventDateTextAttendee);
         eventTimeViewAttendee = findViewById(R.id.eventTimeTextAttendee);
         eventLocationViewAttendee = findViewById(R.id.eventLocationTextAttendee);
+        registrationStatusAttendee = findViewById(R.id.registrationStatusAttendee);
         backButtonAttendee = findViewById(R.id.backToMainButtonAttendee);
         organizerNameViewAttendee = findViewById(R.id.organizerNameTextAttendee);
         eventDescriptionViewAttendee = findViewById(R.id.eventDescriptionTextAttendee);

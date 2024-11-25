@@ -138,14 +138,19 @@ public class Event {
     }
 
     public void acceptAttendee(String attendeeID){
-        pendingAttendeeIDs.remove(attendeeID);
-        acceptedAttendeeIDs.add(attendeeID);
+        MainActivity.removePendingAttendeeFromEvent(getEventID(),attendeeID);
+        MainActivity.addAcceptedAttendeeToEvent(getEventID(),attendeeID);
     }
 
     public void rejectAttendee(String attendeeID){
-        pendingAttendeeIDs.remove(attendeeID);
+        MainActivity.removePendingAttendeeFromEvent(getEventID(),attendeeID);
     }
 
+    public void addAttendeeRequest(String attendeeID) {
+        MainActivity.addPendingAttendeeToEvent(getEventID(),attendeeID);
+    }
+
+    // These two methods are for MainActivity usage
     public void addPendingAttendeeID(String ID) {
         pendingAttendeeIDs.add(ID);
     }

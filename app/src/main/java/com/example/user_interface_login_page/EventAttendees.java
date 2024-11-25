@@ -92,7 +92,7 @@ public class EventAttendees extends AppCompatActivity {
 
         acceptButton.setOnClickListener(v->{
             if (selectedUser != null) {
-                selectedUser.addEventIDs(event.getEventID());
+                selectedUser.registerToEvent(event.getEventID());
                 event.acceptAttendee(selectedUser.getUserID());
                 attendeeAdapter.notifyDataSetChanged();
 

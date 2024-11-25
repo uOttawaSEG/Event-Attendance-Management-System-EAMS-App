@@ -101,6 +101,87 @@ public class MainActivity extends AppCompatActivity {
         databaseReferenceUsers.child(event.getOrganizerID()).child("eventIDs").child(tempKey).setValue(eventID);
     }
 
+    // Method to add event ID to attendee eventID list
+    protected static void addEventToAttendee(String attendeeID, String eventID) {
+        String tempKey = databaseReferenceUsers.child(attendeeID).child("eventIDs").push().getKey();
+        databaseReferenceUsers.child(attendeeID).child("eventIDs").child(tempKey).setValue(eventID);
+    }
+
+    // Method to add attendee ID to event acceptedAttendeeID list
+    protected static void addAcceptedAttendeeToEvent(String eventID, String attendeeID) {
+        String tempKey = databaseReferenceEvents.child(eventID).child("acceptedAttendeeIDs").push().getKey();
+        databaseReferenceEvents.child(eventID).child("acceptedAttendeeIDs").child(tempKey).setValue(attendeeID);
+    }
+
+    // Method to add attendee ID to event pendingAttendeeID list
+    protected static void addPendingAttendeeToEvent(String eventID, String attendeeID) {
+        String tempKey = databaseReferenceEvents.child(eventID).child("pendingAttendeeIDs").push().getKey();
+        databaseReferenceEvents.child(eventID).child("pendingAttendeeIDs").child(tempKey).setValue(attendeeID);
+    }
+
+    // Method to remove event ID from attendee eventIDs list
+    protected static void removeEventFromAttendee(String attendeeID, String eventID) {
+        DatabaseReference ref = databaseReferenceUsers.child(attendeeID).child("eventIDs");
+        ref.orderByValue().equalTo(eventID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Get the key that has the specific value
+                    String key = snapshot.getKey();
+                    // Delete the key
+                    ref.child(key).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error deleting key: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    // Method to remove attendee ID from event acceptedAttendeeID list
+    protected static void removeAcceptedAttendeeFromEvent(String eventID, String attendeeID) {
+        DatabaseReference ref = databaseReferenceEvents.child(eventID).child("acceptedAttendeeIDs");
+        ref.orderByValue().equalTo(attendeeID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Get the key that has the specific value
+                    String key = snapshot.getKey();
+                    // Delete the key
+                    ref.child(key).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error deleting key: " + databaseError.getMessage());
+            }
+        });
+    }
+
+    // Method to remove attendee ID from event pendingAttendeeID list
+    protected static void removePendingAttendeeFromEvent(String eventID, String attendeeID) {
+        DatabaseReference ref = databaseReferenceEvents.child(eventID).child("pendingAttendeeIDs");
+        ref.orderByValue().equalTo(attendeeID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    // Get the key that has the specific value
+                    String key = snapshot.getKey();
+                    // Delete the key
+                    ref.child(key).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Firebase", "Error deleting key: " + databaseError.getMessage());
+            }
+        });
+    }
+
     // Method to read users from Firebase into userList
     protected static void readUsers() {
         databaseReferenceUsers.addValueEventListener(new ValueEventListener() {
@@ -124,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
                         Attendee temp = new Attendee(firstName, lastName, emailAddress, accountPassword, phoneNumber, address);
                         temp.setUserID(userID);
                         temp.setRegistrationStatus(registrationStatus);
+
+                        for (DataSnapshot eventIDSnapshot : userSnapshot.child("eventIDs").getChildren()) {
+                            String eventID = eventIDSnapshot.getValue(String.class);
+                            temp.addEventID(eventID);
+                        }
                         userList.add(temp);
                     }
 

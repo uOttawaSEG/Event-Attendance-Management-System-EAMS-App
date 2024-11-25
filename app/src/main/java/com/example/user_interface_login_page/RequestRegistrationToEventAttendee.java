@@ -46,13 +46,26 @@ public class RequestRegistrationToEventAttendee extends AppCompatActivity {
         String eventID = b.getString("eventID");
         String attendeeID = b.getString("userID");
 
-        event = (Event) MainActivity.getEventFromID(eventID);
+        event = MainActivity.getEventFromID(eventID);
         attendee = (Attendee) MainActivity.getUserFromID(attendeeID);
 
         initViewsAndFields(event);
         setOnclickListeners();
     }
-
+    private boolean conflictsBetweenEvents(Event event) {
+        boolean thereIsConflict = false;
+        for (int i=0; i<attendee.getEventIDs().size(); i++) {
+            long start1 = event.getEventStartTimeMillis();
+            long start2 = MainActivity.getEventFromID(attendee.getEventIDs().get(i)).getEventStartTimeMillis();
+            long end1 = event.getEventEndTimeMillis();
+            long end2 = MainActivity.getEventFromID(attendee.getEventIDs().get(i)).getEventEndTimeMillis();
+            if (start1 < end2 && start2 < end1) {
+                thereIsConflict = true;
+                break;
+            }
+        }
+        return thereIsConflict;
+    }
     private void setOnclickListeners() {
         backToWelcomeButton.setOnClickListener( v -> {
             Intent intent = new Intent(RequestRegistrationToEventAttendee.this, ViewEventsAttendee.class);
@@ -63,21 +76,16 @@ public class RequestRegistrationToEventAttendee extends AppCompatActivity {
         });
 
         registerToEventButton.setOnClickListener( v -> {
-            boolean alreadyTried = false;
-
-            for(int i = 0; i < event.getPendingAttendeeIDs().size(); i++) {
-                if (attendee.getUserID() == event.getPendingAttendeeIDs().get(i)) {
-                    alreadyTried = true;
+            if (!conflictsBetweenEvents(event)) {
+                event.addAttendeeRequest(attendee.getUserID());
+                attendee.registerToEvent(event.getEventID());
+                if (event.isAutoRegistration()) {
+                    event.acceptAttendee(attendee.getUserID());
+                    Toast.makeText(getApplicationContext(), "You're registration request is accepted", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "You're registration request is being processed", Toast.LENGTH_SHORT).show();
                 }
-            }
-            for(int i = 0; i < event.getAcceptedAttendeeIDs().size(); i++) {
-                if (attendee.getUserID() == event.getAcceptedAttendeeIDs().get(i)) {
-                    alreadyTried = true;
-                }
-            }
 
-            if (!alreadyTried) {
-                event.addPendingAttendeeID(attendee.getUserID());
                 Intent intent = new Intent(RequestRegistrationToEventAttendee.this, ViewEventsAttendee.class);
                 Bundle b = new Bundle();
                 b.putString("userID", attendee.getUserID());
@@ -85,7 +93,7 @@ public class RequestRegistrationToEventAttendee extends AppCompatActivity {
                 startActivity(intent);
             }
             else {
-                Toast.makeText(getApplicationContext(), "You have already tried registering!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Can't register to this event due to a time conflict", Toast.LENGTH_SHORT).show();
             }
         });
     }

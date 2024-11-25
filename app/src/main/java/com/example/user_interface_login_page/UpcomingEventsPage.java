@@ -125,13 +125,18 @@ public class UpcomingEventsPage extends AppCompatActivity {
 
         deleteButton.setOnClickListener(v -> {
             if (selectedEvent != null){
-                MainActivity.deleteEvent(selectedEvent.getEventID());
-                Toast.makeText(this,"Event deleted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UpcomingEventsPage.this, UpcomingEventsPage.class);
-                Bundle b = new Bundle();
-                b.putString("userID", organizer.getUserID());
-                intent.putExtras(b);
-                startActivity(intent);
+                if (selectedEvent.getAcceptedAttendeeIDs().isEmpty()) {
+                    MainActivity.deleteEvent(selectedEvent.getEventID());
+                    Toast.makeText(this, "Event deleted", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UpcomingEventsPage.this, UpcomingEventsPage.class);
+                    Bundle b = new Bundle();
+                    b.putString("userID", organizer.getUserID());
+                    intent.putExtras(b);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(this, "This event has " + selectedEvent.getAcceptedAttendeeIDs().size() + " registered attendee(s). Cannot delete this event.", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
                 Toast.makeText(this,"Please select an event to delete", Toast.LENGTH_SHORT).show();

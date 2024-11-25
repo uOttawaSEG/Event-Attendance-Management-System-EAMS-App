@@ -68,6 +68,10 @@ public class InitialPage extends AppCompatActivity {
                         Intent intent;
                         if (user.getUserType().equals("Administrator")) {
                             intent = new Intent(InitialPage.this, AdministratorWelcomePage.class);
+                            Bundle b = new Bundle();
+                            b.putString("userID", user.getUserID());
+                            intent.putExtras(b);
+                            startActivity(intent);
 
                         }
                         else if (user.getUserType().equals("Organizer")) {

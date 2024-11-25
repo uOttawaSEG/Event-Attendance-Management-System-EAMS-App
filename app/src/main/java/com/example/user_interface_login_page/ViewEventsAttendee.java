@@ -29,8 +29,6 @@ public class ViewEventsAttendee extends AppCompatActivity {
     private Button goToEventButton;
     private ListView eventsListView;
     ArrayList<Event> attendeeEventsList;
-
-    ArrayList<Event> listOfEventsforAttendees;
     Attendee attendee;
     Event event;
 
@@ -49,18 +47,18 @@ public class ViewEventsAttendee extends AppCompatActivity {
         assert b != null;
         String userID = b.getString("userID");
         attendee = (Attendee) MainActivity.getUserFromID(userID);
-        //event = null;
+
         attendeeEventsList = new ArrayList<>();
-        listOfEventsforAttendees = new ArrayList<>();
+        ArrayList<Event> listOfEventsForAttendees = new ArrayList<>();
 
         for(int i = 0; i < attendee.getEventIDs().size(); i++) {
-            listOfEventsforAttendees.add(MainActivity.getEventFromID(attendee.getEventIDs().get(i)));
+            listOfEventsForAttendees.add(MainActivity.getEventFromID(attendee.getEventIDs().get(i)));
         }
 
         for (Event event: MainActivity.eventList) {
             boolean foundEvent = false;
             for (int i = 0; i < attendee.getEventIDs().size(); i++) {
-                if (event.equals(listOfEventsforAttendees.get(i))) {
+                if (event.equals(listOfEventsForAttendees.get(i))) {
                     foundEvent = true;
                     break;
                 }
@@ -80,6 +78,7 @@ public class ViewEventsAttendee extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 event = attendeeEventsList.get(position);
+                Toast.makeText(getApplicationContext(), event.getEventTitle() + " is selected", Toast.LENGTH_SHORT).show();
             }
         });
     }
