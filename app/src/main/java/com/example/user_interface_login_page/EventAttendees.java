@@ -126,14 +126,15 @@ public class EventAttendees extends AppCompatActivity {
         });
 
         approveAllButton.setOnClickListener( v -> {
-            if (pendingAttendees != null && !pendingAttendees.isEmpty()) {
-                for (int i = 0; i < pendingAttendees.size(); i++) {
-                    pendingAttendees.get(i).registerToEvent(event.getEventID());
-                    event.acceptAttendee(pendingAttendees.get(i).getUserID());
-                }
+            if (!pendingAttendees.isEmpty()) {
+                for (Attendee attendee : new ArrayList<>(pendingAttendees)) {
+                    attendee.registerToEvent(event.getEventID());
+                    event.acceptAttendee(attendee.getUserID());
+                    }
+                pendingAttendees.clear();
                 attendeeAdapter.notifyDataSetChanged();
 
-                Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + "All attendees have been registered!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "All attendees have been registered!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EventAttendees.this, EventAttendees.class);
                 Bundle b = new Bundle();
                 b.putString("eventID", event.getEventID());

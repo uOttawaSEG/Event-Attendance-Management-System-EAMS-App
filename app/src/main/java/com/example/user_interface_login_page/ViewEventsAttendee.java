@@ -19,6 +19,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class ViewEventsAttendee extends AppCompatActivity {
                 attendeeEventsList.add(event);
             }
         }
-
+        attendeeEventsList.sort(Comparator.comparingLong(Event::getEventStartTimeMillis));
         initViews();
         initializeViews();
         initializeEventAdapter();

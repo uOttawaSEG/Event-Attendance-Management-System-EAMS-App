@@ -21,6 +21,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EventRegistrationPage extends AppCompatActivity {
@@ -29,9 +30,9 @@ public class EventRegistrationPage extends AppCompatActivity {
     private Button createButtonEvent;
     private EditText eventTitleET;
     private EditText descriptionET;
-    private EditText dateET;
-    private EditText startTimeET;
-    private EditText endTimeET;
+    private TextView dateET;
+    private TextView startTimeET;
+    private TextView endTimeET;
     private EditText eventAddressET;
     private CheckBox checkBoxManual;
 
@@ -108,6 +109,7 @@ public class EventRegistrationPage extends AppCompatActivity {
            startTimeEvent = dateEvent + (startTimeEvent % (86400 * 1000));
            endTimeEvent = dateEvent + (endTimeEvent % (86400 * 1000));
 
+           Toast.makeText(getApplicationContext(), (new Date(dateEvent)).toString(), Toast.LENGTH_SHORT).show();
            try {
                if (!Validator.validateDate(startTimeEvent)) {
                    throw new IllegalArgumentException("Date has already passed or has been left blank!");
