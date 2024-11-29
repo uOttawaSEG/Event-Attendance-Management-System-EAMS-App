@@ -109,6 +109,10 @@ public class EventRegistrationPage extends AppCompatActivity {
            endTimeEvent = dateEvent + (endTimeEvent % (86400 * 1000));
 
            try {
+               if (!Validator.validateDate(startTimeEvent)) {
+                   throw new IllegalArgumentException("Date has already passed or has been left blank!");
+               }
+
                Event event = new Event(eventTitle,description,dateEvent,startTimeEvent,endTimeEvent,address,registrationType,organizer.getUserID());
                MainActivity.addEvent(event);
 

@@ -30,7 +30,6 @@ public class EventAttendees extends AppCompatActivity {
     private Button rejectButton;
     private Button backButton;
     private Button approveAllButton;
-
     Event event;
     protected Attendee selectedUser;
     private List<Attendee> pendingAttendees = new ArrayList<>();
@@ -129,11 +128,16 @@ public class EventAttendees extends AppCompatActivity {
         approveAllButton.setOnClickListener( v -> {
             if (pendingAttendees != null && !pendingAttendees.isEmpty()) {
                 for (int i = 0; i < pendingAttendees.size(); i++) {
+                    pendingAttendees.get(i).registerToEvent(event.getEventID());
                     event.acceptAttendee(pendingAttendees.get(i).getUserID());
                 }
                 attendeeAdapter.notifyDataSetChanged();
+
                 Toast.makeText(getApplicationContext(), selectedUser.getEmailAddress() + "All attendees have been registered!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(EventAttendees.this, EventAttendees.class);
+                Bundle b = new Bundle();
+                b.putString("eventID", event.getEventID());
+                intent.putExtras(b);
                 startActivity(intent);
             }
             else {
