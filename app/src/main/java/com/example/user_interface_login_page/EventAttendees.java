@@ -91,7 +91,6 @@ public class EventAttendees extends AppCompatActivity {
 
         acceptButton.setOnClickListener(v->{
             if (selectedUser != null) {
-                selectedUser.registerToEvent(event.getEventID());
                 event.acceptAttendee(selectedUser.getUserID());
                 attendeeAdapter.notifyDataSetChanged();
 
@@ -128,10 +127,8 @@ public class EventAttendees extends AppCompatActivity {
         approveAllButton.setOnClickListener( v -> {
             if (!pendingAttendees.isEmpty()) {
                 for (Attendee attendee : new ArrayList<>(pendingAttendees)) {
-                    attendee.registerToEvent(event.getEventID());
                     event.acceptAttendee(attendee.getUserID());
-                    }
-                pendingAttendees.clear();
+                }
                 attendeeAdapter.notifyDataSetChanged();
 
                 Toast.makeText(getApplicationContext(), "All attendees have been registered!", Toast.LENGTH_SHORT).show();

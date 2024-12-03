@@ -194,7 +194,7 @@
             android:layout_height="70sp"
             android:layout_marginTop="@dimen/default_top_margin"
             android:layout_marginStart="8sp"
-            android:text="Manual Registration" />
+            android:text="Auto-Registration" />
 
         <!--        <AutoCompleteTextView-->
 <!--            android:id="@+id/eventRegistrationTypeACTV"-->

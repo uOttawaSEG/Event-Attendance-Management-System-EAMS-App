@@ -51,20 +51,22 @@ public class ViewEventsAttendee extends AppCompatActivity {
         attendee = (Attendee) MainActivity.getUserFromID(userID);
 
         attendeeEventsList = new ArrayList<>();
+        ArrayList<Event> listOfNoNoS = new ArrayList<>();
         filteredEventsList = new ArrayList<>();
-// Populate the attendee's events list
+
+        // Populate the attendee's events list
         long currentTime = new Date().getTime();
         for (String eventID : attendee.getEventIDs()) {
             Event event = MainActivity.getEventFromID(eventID);
             if (event != null && event.getEventStartTimeMillis() > currentTime) {
-                attendeeEventsList.add(event);  // Exclude registered events
+                listOfNoNoS.add(event);  // Exclude registered events
             }
         }
 
         // Filter out past events and add to the list
         for (Event event : MainActivity.eventList) {
             // If the event is not in attendee's list and is upcoming, add it
-            if (!attendeeEventsList.contains(event) && event.getEventStartTimeMillis() > currentTime) {
+            if (!listOfNoNoS.contains(event) && event.getEventStartTimeMillis() > currentTime) {
                 attendeeEventsList.add(event);
             }
         }
@@ -81,8 +83,7 @@ public class ViewEventsAttendee extends AppCompatActivity {
         // Handle event selection
         eventsListView.setOnItemClickListener((parent, view, position, id) -> {
             selectedEvent = filteredEventsList.get(position);
-            //Toast.makeText(getApplicationContext(), selectedEvent.getEventTitle() + " is selected", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getApplicationContext(),new Date(selectedEvent.getEventDateMillis()).toString() + new Date(selectedEvent.getEventStartTimeMillis()), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), selectedEvent.getEventTitle() + " is selected", Toast.LENGTH_SHORT).show();
         });
     }
 

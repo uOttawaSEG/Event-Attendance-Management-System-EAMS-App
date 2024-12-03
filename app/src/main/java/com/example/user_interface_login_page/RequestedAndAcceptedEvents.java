@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 public class RequestedAndAcceptedEvents extends AppCompatActivity {
@@ -59,6 +60,9 @@ public class RequestedAndAcceptedEvents extends AppCompatActivity {
                 attendeeEventsList.add(eventToAdd);
             }
         }
+
+        // Sort by start time
+        attendeeEventsList.sort(Comparator.comparingLong(Event::getEventStartTimeMillis));
 
         initViews();
         initializeEventListeners();
