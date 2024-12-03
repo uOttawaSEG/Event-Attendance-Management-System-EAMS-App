@@ -29,9 +29,10 @@ public class ViewEventsAttendee extends AppCompatActivity {
     private Button backButton;
     private Button goToEventButton;
     private ListView eventsListView;
-    ArrayList<Event> attendeeEventsList;
-    Attendee attendee;
-    Event event;
+    private ArrayList<Event> attendeeEventsList;
+    private ArrayList<Event> filteredEventsList;
+    private Attendee attendee;
+    private Event selectedEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,65 +51,64 @@ public class ViewEventsAttendee extends AppCompatActivity {
         attendee = (Attendee) MainActivity.getUserFromID(userID);
 
         attendeeEventsList = new ArrayList<>();
-        ArrayList<Event> listOfEventsForAttendees = new ArrayList<>();
-
-        for(int i = 0; i < attendee.getEventIDs().size(); i++) {
-            listOfEventsForAttendees.add(MainActivity.getEventFromID(attendee.getEventIDs().get(i)));
+        filteredEventsList = new ArrayList<>();
+// Populate the attendee's events list
+        long currentTime = new Date().getTime();
+        for (String eventID : attendee.getEventIDs()) {
+            Event event = MainActivity.getEventFromID(eventID);
+            if (event != null && event.getEventStartTimeMillis() > currentTime) {
+                attendeeEventsList.add(event);  // Exclude registered events
+            }
         }
 
-        for (Event event: MainActivity.eventList) {
-            boolean foundEvent = false;
-            for (int i = 0; i < attendee.getEventIDs().size(); i++) {
-                if (event.equals(listOfEventsForAttendees.get(i))) {
-                    foundEvent = true;
-                    break;
-                }
-            }
-            Date date = new Date();
-            long currentTime = date.getTime();
-            if (!foundEvent && event.getEventStartTimeMillis() > currentTime) {
+        // Filter out past events and add to the list
+        for (Event event : MainActivity.eventList) {
+            // If the event is not in attendee's list and is upcoming, add it
+            if (!attendeeEventsList.contains(event) && event.getEventStartTimeMillis() > currentTime) {
                 attendeeEventsList.add(event);
             }
         }
+
+
+        // Sort by start time
         attendeeEventsList.sort(Comparator.comparingLong(Event::getEventStartTimeMillis));
+        filteredEventsList.addAll(attendeeEventsList);
+
         initViews();
         initializeViews();
         initializeEventAdapter();
 
-        eventsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                event = attendeeEventsList.get(position);
-                Toast.makeText(getApplicationContext(), event.getEventTitle() + " is selected", Toast.LENGTH_SHORT).show();
-            }
+        // Handle event selection
+        eventsListView.setOnItemClickListener((parent, view, position, id) -> {
+            selectedEvent = filteredEventsList.get(position);
+            //Toast.makeText(getApplicationContext(), selectedEvent.getEventTitle() + " is selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),new Date(selectedEvent.getEventDateMillis()).toString() + new Date(selectedEvent.getEventStartTimeMillis()), Toast.LENGTH_SHORT).show();
         });
     }
 
     private void initializeEventAdapter() {
-        upcomingEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, attendeeEventsList);
+        upcomingEventsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filteredEventsList);
         eventsListView.setAdapter(upcomingEventsAdapter);
     }
 
     private void initializeViews() {
-        backButton.setOnClickListener(v->{
-            Intent intent = new Intent(ViewEventsAttendee.this,AttendeeWelcomePage.class);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ViewEventsAttendee.this, AttendeeWelcomePage.class);
             Bundle b = new Bundle();
             b.putString("userID", attendee.getUserID());
             intent.putExtras(b);
             startActivity(intent);
         });
-
-        goToEventButton.setOnClickListener(v->{
-            if (event != null) {
+        goToEventButton.setOnClickListener(v -> {
+            if (selectedEvent != null) {
                 Intent intent = new Intent(ViewEventsAttendee.this, RequestRegistrationToEventAttendee.class);
                 Bundle b = new Bundle();
-                b.putString("eventID", event.getEventID());
+                b.putString("eventID", selectedEvent.getEventID());
                 b.putString("userID", attendee.getUserID());
                 intent.putExtras(b);
                 startActivity(intent);
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "Please select to view!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "Please select an event to view!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -116,28 +116,35 @@ public class ViewEventsAttendee extends AppCompatActivity {
     private void initViews() {
         backButton = findViewById(R.id.btn_go_back);
         goToEventButton = findViewById(R.id.btn_view_event);
-        searchBar= findViewById(R.id.search_bar);
+        searchBar = findViewById(R.id.search_bar);
         eventsListView = findViewById(R.id.lv_events);
 
+        // Add a TextWatcher to filter the event list
         searchBar.addTextChangedListener(new TextWatcher() {
-            // imported TextWatcher, it is used to track changes to text entered in an EditText field.
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No implementation, just here to satisfy the interface
+                // No implementation needed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // Satisfying the interface  TextWatcher
+                // No implementation needed
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                upcomingEventsAdapter.getFilter().filter(s.toString()); // turns every keystroke into a search query
+                String query = s.toString().toLowerCase().trim();
+                filteredEventsList.clear();
+
+                for (Event event : attendeeEventsList) {
+                    if (event.getEventTitle().toLowerCase().contains(query) ||
+                            event.getDescription().toLowerCase().contains(query)) {
+                        filteredEventsList.add(event);
+                    }
+                }
+
+                upcomingEventsAdapter.notifyDataSetChanged();
             }
         });
-
-
     }
 }

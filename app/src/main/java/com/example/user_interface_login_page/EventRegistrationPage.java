@@ -11,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -105,11 +107,22 @@ public class EventRegistrationPage extends AppCompatActivity {
            String address = this.eventAddressET.getText().toString();
            boolean registrationType = this.checkBoxManual.isChecked();
 
-           dateEvent = dateEvent - (dateEvent % (86400 * 1000));
-           startTimeEvent = dateEvent + (startTimeEvent % (86400 * 1000));
-           endTimeEvent = dateEvent + (endTimeEvent % (86400 * 1000));
+           try {
+               dateEvent = getTimeFromDate(dateET.getText().toString());
+           } catch (ParseException e) {
+               throw new RuntimeException(e);
+           }
 
-           Toast.makeText(getApplicationContext(), (new Date(dateEvent)).toString(), Toast.LENGTH_SHORT).show();
+           startTimeEvent = dateEvent + getTimeFromString(startTimeET.getText().toString());
+
+           endTimeEvent = dateEvent + getTimeFromString(endTimeET.getText().toString());
+
+//           Toast.makeText(getApplicationContext(), new Date(dateEvent).toString(), Toast.LENGTH_SHORT).show();
+//
+//           Toast.makeText(getApplicationContext(), new Date(startTimeEvent).toString(), Toast.LENGTH_SHORT).show();
+//
+//           Toast.makeText(getApplicationContext(), new Date(endTimeEvent).toString(), Toast.LENGTH_SHORT).show();
+
            try {
                if (!Validator.validateDate(startTimeEvent)) {
                    throw new IllegalArgumentException("Date has already passed or has been left blank!");
@@ -189,5 +202,22 @@ public class EventRegistrationPage extends AppCompatActivity {
             }
         }, hour, minute, true);
         timePickerDialog.show();
+    }
+
+    private long getTimeFromDate(String date) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        Date newDate = format.parse(date);
+
+        assert newDate != null;
+        return newDate.getTime();
+    }
+
+    private long getTimeFromString(String time) {
+        String[] times = time.split(":");
+
+        long hours = Long.parseLong(times[0]) * 3600 * 1000;
+        long minutes = Long.parseLong(times[1]) * 60 * 1000;
+
+        return hours + minutes;
     }
 }
