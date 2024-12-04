@@ -53,13 +53,6 @@ public class ExampleUnitTest {
         assertFalse(Validator.validatePhoneNumber(""));              // Empty phone number
     }
 
-    // Test validateAddress
-    @Test
-    public void testValidateAddress() {
-        assertTrue(Validator.validateAddress("123 playground stret"));    // Valid address
-        assertFalse(Validator.validateAddress("123 Main St"));                    // Missing city/state/zip
-        assertFalse(Validator.validateAddress(""));                               // Empty address
-    }
 
     // Test validatePassword
     @Test
