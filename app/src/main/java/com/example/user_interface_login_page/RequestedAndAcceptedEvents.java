@@ -142,12 +142,6 @@ public class RequestedAndAcceptedEvents extends AppCompatActivity {
                             break;
                         }
                     }
-                    for (int i=0; i<selectedEvent.getAcceptedAttendeeIDs().size(); i++) {
-                        if (attendee.getUserID().equals(selectedEvent.getAcceptedAttendeeIDs().get(i))) {
-                            isRejected = false;
-                            break;
-                        }
-                    }
 
                     if (!isRejected) {
                         attendee.unregisterToEvent(selectedEvent.getEventID());
@@ -159,7 +153,7 @@ public class RequestedAndAcceptedEvents extends AppCompatActivity {
                         startActivity(intent);
                     }
                     else {
-                        Toast.makeText(this, "You are already rejected from this event!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Your registration has already been processed!", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else {
